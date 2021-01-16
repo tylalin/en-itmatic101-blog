@@ -12,5 +12,3 @@
 
 ## Automation
 
-* [Infrastructure as Code \(IaC\)](automation/infrastructure-as-code-iac.md)
-
