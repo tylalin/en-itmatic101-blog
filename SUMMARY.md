@@ -8,7 +8,7 @@
 
 ## Python
 
-* [Setting up developer environment](python/virtualenv.md)
+* [Setting up a Python developer environment](python/virtualenv.md)
 
 ## Automation
 

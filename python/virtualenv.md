@@ -1,4 +1,4 @@
-# Setting up developer environment
+# Setting up a Python developer environment
 
 Developer environment is the environment a developer use to code without affecting his/her work laptop/PC; while installing additional packages and plugins required by end customer's defined specifications and not breaking daily work engine \(laptop/PC\). Some developers prefer to set up a separate virtual machine to muck around with their environment carefree but some don't really have much horsepower on their work laptop/PC to do so. In that case, virtual environment or venv comes in handy for the ones don't really like to setup a virtual machine and maintain/patch two different operating systems; one on the host machine and one on the VM. 
 
