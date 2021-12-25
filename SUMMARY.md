@@ -10,9 +10,7 @@
 
 * [Setting up a Python developer environment](python/virtualenv.md)
 
-## Automation
-
 ## Ansible
 
 * [Ansible Vault](ansible/untitled.md)
-
+* [Ansible WireGuard workflow on Linode](ansible/ansible-wireguard-workflow-on-linode.md)
