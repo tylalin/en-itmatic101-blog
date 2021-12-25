@@ -12,5 +12,5 @@
 
 ## Ansible
 
-* [Ansible Vault](ansible/untitled.md)
-* [Ansible WireGuard workflow on Linode](ansible/ansible-wireguard-workflow-on-linode.md)
+* [Ansible Vault](ansible/ansible-vault.md)
+* [Ansible WireGuard workflow on Linode](ansible/linode-ansible-wireguard.md)
