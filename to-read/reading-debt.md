@@ -16,11 +16,7 @@
 
 {% embed url="https://www.youtube.com/watch?v=364Plv6zuBU" %}
 
-{% embed url="https://www.youtube.com/watch?v=9zXBco0Zs3c" %}
-
 {% embed url="https://opensource.com/article/18/9/how-build-rpm-packages" %}
-
-{% embed url="https://www.thegeekstuff.com/2015/02/rpm-build-package-example/" %}
 
 ### Nebula Mesh Network
 
