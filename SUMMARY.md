@@ -14,7 +14,3 @@
 
 * [Ansible Vault](ansible/ansible-vault.md)
 * [Ansible WireGuard workflow on Linode](ansible/linode-ansible-wireguard.md)
-
-## To Read
-
-* [Reading Debt](to-read/reading-debt.md)
