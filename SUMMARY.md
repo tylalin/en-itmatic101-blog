@@ -14,3 +14,7 @@
 
 * [Ansible Vault](ansible/ansible-vault.md)
 * [Ansible WireGuard workflow on Linode](ansible/linode-ansible-wireguard.md)
+
+## Virtualisation
+
+* [Customise VM template with cloud-init on Promox](virtualisation/customise-vm-template-with-cloud-init-on-promox.md)
