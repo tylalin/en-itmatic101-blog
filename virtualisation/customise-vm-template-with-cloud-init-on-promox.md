@@ -30,11 +30,11 @@ Following is the step-by-step guide on how to create a customised VM template wi
     $ virt-customize -a jammy-server-cloudimg-amd64.img --update
 
     # set preferred timezone
-    $ virt-customize -a jammy-server-cloudimg-amd64.img--timezone "Australia/Darwin"
+    $ virt-customize -a jammy-server-cloudimg-amd64.img --timezone "Australia/Darwin"
 
     # copy the ssh pubkey into the image
     # that id_rsa.pub needs to be uploaded to the host in piror to run this command
-    $ virt-customize -a jammy-server-cloudimg-amd64.img--ssh-inject root:file:./id_rsa.pub
+    $ virt-customize -a jammy-server-cloudimg-amd64.img --ssh-inject root:file:./id_rsa.pub
     ```
 
 
