@@ -18,3 +18,7 @@
 ## Virtualisation
 
 * [Customise VM template with cloud-init on Promox](virtualisation/customise-vm-template-with-cloud-init-on-promox.md)
+
+## Tools
+
+* [Setting up AdGuard Home](tools/setting-up-adguard-home.md)
