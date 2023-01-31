@@ -16,7 +16,8 @@ Following is the step-by-step guide on how to create a customised VM template wi
 *   Download the Ubuntu 22.04 LTS cloud image \
 
 
-    <pre><code><strong>$ wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img</strong></code></pre>
+    <pre><code><strong>$ wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+    </strong></code></pre>
 
 
 *   Use the following 'virt-customize' commands to prep the downloaded cloud image.\
@@ -71,8 +72,12 @@ Following is the step-by-step guide on how to create a customised VM template wi
     # set the ipconfig to dhcp
     $ qm set 1001 --ipconfig0 ip=dhcp
 
+    # resize the attached disk
+    $ qm resize 1001 scsi0 32G
+
     # convert the VM instance into a VM template
-    $ qm template 1001</code></pre>
+    $ qm template 1001
+    </code></pre>
 
 
 *   As the VM template is ready, it is time to spin up the new VM instance based on the template and start it to check if the VM was configured properly. Then shutdown the VM and delete as following. \
