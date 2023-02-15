@@ -22,3 +22,7 @@
 ## Tools
 
 * [Setting up AdGuard Home](tools/setting-up-adguard-home.md)
+
+## Networking
+
+* [Mikrotik IPsec Tunnel Setup](networking/mikrotik-ipsec-tunnel-setup.md)
