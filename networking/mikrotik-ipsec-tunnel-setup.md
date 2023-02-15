@@ -5,7 +5,7 @@ coverY: 0
 
 # Mikrotik IPsec Tunnel Setup
 
-Although there are a few new and shiny VPN tunneling protocol like WireGuard, IPsec is still the king of enterprise grade for site-to-site VPN tunnteling. It is not as easy as WireGuard to setup on Mikrotik. Personally I like Mikrotik a lot of its RouterOS based on Linux and pricing model for all hardware. At least, it doesn't break my bank for all the features I want to work with.&#x20;
+Although there are a few new and shiny VPN tunneling protocols like WireGuard, IPsec is still the king of enterprise grade for site-to-site VPN tunnteling. It is not as easy as WireGuard to setup on Mikrotik. Personally I like Mikrotik a lot of its RouterOS based on Linux and pricing model for all hardware. At least, it doesn't break my bank for all the features I want to work with.&#x20;
 
 ## Prerequisites&#x20;
 
