@@ -18,7 +18,7 @@ Although there are a few new and shiny VPN tunneling protocols like WireGuard, I
 
 <figure><img src="../.gitbook/assets/2023-02-16_07-30.png" alt=""><figcaption><p>Mikrotik IPsec Tunneling</p></figcaption></figure>
 
-* Two sites - HQ and Coud. Each site has the IP address of 10.20.30.0/24 subnet as shown in the diagram.
+* Two sites - HQ and Cloud; each site has the WAN IP address of 10.20.30.0/24 subnet as shown in the diagram.
 * HQ has two VLANs - 100 for Dev team and 200 for OPS team at its site. Only Dev team can access to the resources in Cloud since it is not that cheap.
 * Cloud has only one connected subnet of 172.31.1.0/24 where they host their Dev servers.
 * Internet switch is the representation of the internet connection via NAT in GNS3.
