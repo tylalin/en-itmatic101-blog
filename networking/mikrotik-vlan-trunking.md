@@ -113,6 +113,10 @@ add bridge=lan-br-vlan20 interface=ops2
 add address=192.168.10.2/24 interface=ops1 network=192.168.10.0
 add address=192.168.20.2/24 interface=ops2 network=192.168.20.0
 
+# Disable the default dhcp-client on ether1 as not required
+/ip dhcp-client
+add disabled=yes interface=ether1
+
 # Set system name to mtr2
 /system identity
 set name=mtr2
@@ -139,6 +143,10 @@ add bridge=sw-br interface=ether1
 /interface bridge vlan
 add bridge=sw-br tagged=ether1 untagged=ether2 vlan-ids=10
 add bridge=sw-br tagged=ether1 untagged=ether3 vlan-ids=20
+
+# Disable the default dhcp-client on ether1 as not required
+/ip dhcp-client
+add disabled=yes interface=ether1
 
 # Set system name to mtr3
 /system identity
