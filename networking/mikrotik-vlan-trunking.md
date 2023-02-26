@@ -67,7 +67,7 @@ add bridge=lan-br-vlan20 interface=e3-vl20
 add address=192.168.10.1/24 interface=lan-br-vlan10 network=192.168.10.0
 add address=192.168.20.1/24 interface=lan-br-vlan20 network=192.168.20.0
 
-# Disable dhcp-client on wan port
+# Enable dhcp-client on wan port for internet breakout
 /ip dhcp-client
 add interface=wan
 
