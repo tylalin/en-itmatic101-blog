@@ -29,14 +29,15 @@ In this article, I would like to demostrate the VLAN capability on Mikrotik and 
 
 This mtr1 is used as a router therefore it uses the software VLAN sub-interfaces on the physical port of the device. Here is the full configuration of mtr1 router on the top of its topology.&#x20;
 
-<pre><code># Create two bridges to bridge each VLAN (10 and 20) between mtr2 and mtr3 
+```
+# Create two bridges to bridge each VLAN (10 and 20) between mtr2 and mtr3 
 /interface bridge
 add name=lan-br-vlan10
 add name=lan-br-vlan20
 
-<strong># Name ether1 as "wan" for easy reference
-</strong><strong>/interface ethernet
-</strong>set [ find default-name=ether1 ] disable-running-check=no name=wan
+# Name ether1 as "wan" for easy reference
+/interface ethernet
+set [ find default-name=ether1 ] disable-running-check=no name=wan
 
 # Create software VLAN sub-interfaces on ether2 and ether3 physical ports
 /interface vlan
@@ -83,7 +84,7 @@ add action=masquerade chain=srcnat out-interface=wan
 # Set the device name as mtr1
 /system identity
 set name=mtr1
-</code></pre>
+```
 
 ### mtr2 switch config
 
