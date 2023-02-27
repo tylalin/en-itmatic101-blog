@@ -27,4 +27,4 @@
 
 * [Mikrotik IPsec Tunnel Setup](networking/mikrotik-ipsec-tunnel-setup.md)
 * [Mikrotik VLAN Trunking](networking/mikrotik-vlan-trunking.md)
-* [Mikrotik VLAN QnQ](networking/mikrotik-vlan-qnq.md)
+* [Mikrotik QinQ VLAN trunking](networking/mikrotik-qinq-vlan-trunking.md)

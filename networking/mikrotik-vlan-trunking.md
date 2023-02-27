@@ -18,7 +18,7 @@ In this article, I would like to demostrate the VLAN capability on Mikrotik and 
 
 ## &#x20;Network Topology
 
-<figure><img src="../.gitbook/assets/mikrotik_vlan_topology.png" alt=""><figcaption><p>Mikrotik VLANs</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mikrotik_vlan_topology.png" alt=""><figcaption><p>Mikrotik VLAN Trunking</p></figcaption></figure>
 
 * Two swtiches - mtr2 and mtr3; each has two VLANs namely ops1 and ops2
 * One router - mtr1 which is bridging between two switches with routing capability for internet breakout to NAT1 cloud and inter-VLAN routing
