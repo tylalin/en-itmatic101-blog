@@ -28,3 +28,4 @@
 * [Mikrotik IPsec Tunnel Setup](networking/mikrotik-ipsec-tunnel-setup.md)
 * [Mikrotik VLAN Trunking](networking/mikrotik-vlan-trunking.md)
 * [Mikrotik QinQ VLAN trunking and policy based routing](networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md)
+* [Mikrotik Use Cases - PPPoE, ECMP, Recursive Routing and WireGuard](networking/mikrotik-use-cases-pppoe-ecmp-recursive-routing-and-wireguard.md)
