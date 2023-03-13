@@ -30,7 +30,7 @@ In this article, I have been setting up a GNS3 lab to experiment its RouterOS 7.
 * One core router "core" to simulate the internet backbone/core connected to NAT1 for the internet breakout connection.
 * Two ISP routers "isp1" and "isp2" to simulate the ISP's PPPoE servers on the providers' end.
 * Three customer routers "mtr1", "mtr2" and "mtr3" to simulate the enterprise customers' end. "mtr2" is especially used for ECMP and Recursive Routing since it is connected to both "isp1" and "isp2" routers.&#x20;
-* Behind each mtr router, it has various LAN subnet for PCs.
+* Behind each mtr router, it has various LAN subnets for PCs.
 
 ### Configuration
 
