@@ -1,6 +1,6 @@
 # Mikrotik RouterOS Hardening for your home internet connection
 
-The price point of Mikrotik hAP devices are quite reasonable and fair compared to any major off the shefl brands like Netgear, TP-Link, D-Link, etc., Therefore, I have been deploying Mikrotik devices for friends and family for home internet connection. It is a kind of overkill to manage the devices remotely but there are many ways to do so. The [Mikrotik Pro](https://play.google.com/store/apps/details?id=com.mikrotik.android.tikapp\&hl=en\&gl=US\&pli=1) mobile app is one of the easy ways to remote access and administer them.&#x20;
+The price point of Mikrotik hAP devices are quite reasonable and fair compared to any major off the shelf brands like Netgear, TP-Link, D-Link, etc., Therefore, I have been deploying Mikrotik devices for friends and family for home internet connection. It is a kind of overkill to manage the devices remotely but there are many ways to do so. The [Mikrotik Pro](https://play.google.com/store/apps/details?id=com.mikrotik.android.tikapp\&hl=en\&gl=US\&pli=1) mobile app is one of the easy ways to remote access and administer them.&#x20;
 
 Over the past couple of years, I have been researching and experimenting on how to secure the Mikrotik devices for the normal home users. So here is the best configuration I can think of to harden the Mikrotik hAP devices for home internet connections. I know that Mikrotik hAP devices come with default configuration out of the box to use but I guess it is not good enough.&#x20;
 
@@ -21,10 +21,6 @@ add name=lan
 # Name the ether1 as wan
 /interface ethernet
 set [ find default-name=ether1 ] name=wan
-
-# Create WireGuard interface for remote access to the site
-/interface wireguard
-add listen-port=13231 name=wireguard1
 
 # Create lists for LAN and WAN so that it can referenced easily in other parts.
 /interface list
@@ -80,11 +76,6 @@ add bridge=lan ingress-filtering=no interface=wlan1
 add interface=wan list=WAN
 add interface=lan list=LAN
 add interface=pppoe-out1 list=WAN
-
-# Configure WireGuard peers for the remote user
-/interface wireguard peers
-add allowed-address=172.16.1.2/30 endpoint-port=13231 interface=wireguard1 \
-    persistent-keepalive=25s public-key="gNJId0yhGvVnWljDvn6Q7htAekLcwp4kQkpBtrTw4jc="
     
 # Configure interface IP addresses    
 /ip address
