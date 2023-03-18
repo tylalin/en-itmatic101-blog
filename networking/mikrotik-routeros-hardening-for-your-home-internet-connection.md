@@ -1,8 +1,8 @@
 # Mikrotik RouterOS Hardening for your home internet connection
 
-The price point of Mikrotik hAP devices are quite reasonable and fair compared to any major off the shelf brands like Netgear, TP-Link, D-Link, etc., Therefore, I have been deploying Mikrotik devices for friends and family for home internet connection. It is a kind of overkill to manage the devices remotely but there are many ways to do so. The [Mikrotik Pro](https://play.google.com/store/apps/details?id=com.mikrotik.android.tikapp\&hl=en\&gl=US\&pli=1) mobile app is one of the easy ways to remote access and administer them.&#x20;
+The price point of Mikrotik hAP devices are quite reasonable and fair compared to any major off the shelf brands like Netgear, TP-Link, D-Link, etc., Therefore, I have been deploying Mikrotik devices for friends and family for home internet connection. It is a kind of overkill for home router to be managed and maintained but there are many ways to do it properly if you know how to use the RouterOS. The [Mikrotik Pro](https://play.google.com/store/apps/details?id=com.mikrotik.android.tikapp\&hl=en\&gl=US\&pli=1) mobile app is one of the easy ways to remote access and administer the Mikrotik hAP devices.&#x20;
 
-Over the past couple of years, I have been researching and experimenting on how to secure the Mikrotik devices for the normal home users. So here is the best configuration I can think of to harden the Mikrotik hAP devices for home internet connections. I know that Mikrotik hAP devices come with default configuration out of the box to use but I guess it is not good enough.&#x20;
+Over the past couple of years, I have been researching and experimenting on how to secure the Mikrotik devices for the normal home users. So here is the best configuration I can think of to harden the Mikrotik hAP devices for home internet connections. I know that Mikrotik hAP devices come with default configuration out of the box but I guess it is not good enough.&#x20;
 
 ## Prerequisites&#x20;
 
@@ -173,3 +173,5 @@ add disabled=no down-script="/tool e-mail send to=tyla@email.com subject=\
     \"srv01: PING is down at home!\" body=\"The srv01 host's PING is down at home!\"" \
     host=192.168.233.233 http-codes="" interval=30m test-script="" timeout=5s type=icmp up-script=""
 ```
+
+As you can see in the above configuration, it can be secured by using firewall filter rule and disabling the unused services as well as automated to do some checks for internal devices in LAN and device reboot status. In fact, there are more interesting things you can do with Mikrotik built-in scripting engine for maintenance like updating the packages and upgrading the firmware at night.
