@@ -8,7 +8,6 @@ Over the past couple of years, I have been researching and experimenting on how 
 
 * Mikrotik RouterOS version 7.8
 * Basic level of comfortableness with Mikrotik RouterOS CLI&#x20;
-* Basic understanding of VPN tunneling and WireGuard in general
 
 ## Configuration
 
