@@ -4,6 +4,14 @@ The price point of Mikrotik hAP devices are quite reasonable and fair compared t
 
 Over the past couple of years, I have been researching and experimenting on how to secure the Mikrotik devices for the normal home users. So here is the best configuration I can think of to harden the Mikrotik hAP devices for home internet connections. I know that Mikrotik hAP devices come with default configuration out of the box to use but I guess it is not good enough.&#x20;
 
+## Prerequisites&#x20;
+
+* Mikrotik RouterOS version 7.8
+* Basic level of comfortableness with Mikrotik RouterOS CLI&#x20;
+* Basic understanding of VPN tunneling and WireGuard in general
+
+## Configuration
+
 Here is the full configuraiton of Mikrotik hAP device with its hardening parts in it.&#x20;
 
 ```
