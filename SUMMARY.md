@@ -29,3 +29,4 @@
 * [Mikrotik VLAN Trunking](networking/mikrotik-vlan-trunking.md)
 * [Mikrotik QinQ VLAN trunking and policy based routing](networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md)
 * [Mikrotik Use Cases - PPPoE, ECMP, Failover, Recursive Routing and WireGuard](networking/mikrotik-use-cases-pppoe-ecmp-failover-recursive-routing-and-wireguard.md)
+* [Mikrotik RouterOS Hardening for your home internet connection](networking/mikrotik-routeros-hardening-for-your-home-internet-connection.md)
