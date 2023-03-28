@@ -224,6 +224,12 @@ add address=192.168.1.0/24 dns-server=1.1.1.1 gateway=192.168.1.1
 /ip firewall nat
 add action=masquerade chain=srcnat out-interface=pppoe-out
 
+# Configure firewall filter rules to allow wireguard inbound and pass-thru traffic
+/ip firewall filter
+add action=accept chain=input dst-port=13231 protocol=udp src-address=122.0.0.253
+add action=accept chain=forward dst-address=192.168.3.0/24 src-address=192.168.1.0/24
+add action=accept chain=forward dst-address=192.168.1.0/24 src-address=192.168.3.0/24
+
 # Configure a static route to mtr3's LAN network thru wireguard1 interface
 /ip route
 add dst-address=192.168.3.0/24 gateway=wireguard1
@@ -376,6 +382,15 @@ add address=192.168.3.0/24 dns-server=8.8.8.8 gateway=192.168.3.1
 # Configure masquerade NAT firewall rule for the internet breakout
 /ip firewall nat
 add action=masquerade chain=srcnat out-interface=pppoe-out
+
+# Configure firewall filter rules to allow wireguard inbound and pass-thru traffic
+/ip firewall filter
+add action=accept chain=input dst-port=13231 protocol=udp src-address=\
+    121.0.0.254
+add action=accept chain=forward dst-address=192.168.1.0/24 src-address=\
+    192.168.3.0/24
+add action=accept chain=forward dst-address=192.168.3.0/24 src-address=\
+    192.168.1.0/24
 
 # Configure a static route to mtr1's LAN network thru wireguard1 interface
 /ip route
