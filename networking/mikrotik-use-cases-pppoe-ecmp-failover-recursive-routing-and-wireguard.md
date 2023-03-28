@@ -226,7 +226,7 @@ add action=masquerade chain=srcnat out-interface=pppoe-out
 
 # Configure firewall filter rules to allow wireguard inbound and pass-thru traffic
 /ip firewall filter
-add action=accept chain=input dst-port=13231 protocol=udp src-address=122.0.0.253
+add action=accept chain=input dst-port=13231 protocol=udp src-address=122.0.0.254
 add action=accept chain=forward dst-address=192.168.3.0/24 src-address=192.168.1.0/24
 add action=accept chain=forward dst-address=192.168.1.0/24 src-address=192.168.3.0/24
 
@@ -385,12 +385,9 @@ add action=masquerade chain=srcnat out-interface=pppoe-out
 
 # Configure firewall filter rules to allow wireguard inbound and pass-thru traffic
 /ip firewall filter
-add action=accept chain=input dst-port=13231 protocol=udp src-address=\
-    121.0.0.254
-add action=accept chain=forward dst-address=192.168.1.0/24 src-address=\
-    192.168.3.0/24
-add action=accept chain=forward dst-address=192.168.3.0/24 src-address=\
-    192.168.1.0/24
+add action=accept chain=input dst-port=13231 protocol=udp src-address=121.0.0.254
+add action=accept chain=forward dst-address=192.168.1.0/24 src-address=192.168.3.0/24
+add action=accept chain=forward dst-address=192.168.3.0/24 src-address=192.168.1.0/24
 
 # Configure a static route to mtr1's LAN network thru wireguard1 interface
 /ip route
