@@ -42,14 +42,15 @@ Following is the step-by-step guide on how to create a customised VM template wi
 *   Now create a new VM instance by using the prep cloud image and configure as below. Note that do not startup the VM before converting it into VM template. \
 
 
-    <pre><code># create a new VM instance with desired specs
+    ```
+    # create a new VM instance with desired specs
     $ qm create 1001 --name "jammy-server-cloudimg-template" --memory 1024 --cores 1 --net0 virtio,bridge=vmbr0
-    <strong>
-    </strong><strong># import the prep cloud image to the VM with target storage location
-    </strong><strong>$ qm importdisk 1001 jammy-server-cloudimg-amd64.img local-lvm
-    </strong><strong>
-    </strong><strong># setup the system disk with required scsi parameters
-    </strong>$ qm set 1001 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-1001-disk-0
+
+    # import the prep cloud image to the VM with target storage location
+    $ qm importdisk 1001 jammy-server-cloudimg-amd64.img local-lvm
+
+    # setup the system disk with required scsi parameters
+    $ qm set 1001 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-1001-disk-0
 
     # setup the boot disk
     $ qm set 1001 --boot c --bootdisk scsi0
@@ -77,7 +78,7 @@ Following is the step-by-step guide on how to create a customised VM template wi
 
     # convert the VM instance into a VM template
     $ qm template 1001
-    </code></pre>
+    ```
 
 
 *   As the VM template is ready, it is time to spin up the new VM instance based on the template and start it to check if the VM was configured properly. Then shutdown the VM and delete as following. \
