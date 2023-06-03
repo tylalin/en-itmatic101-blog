@@ -22,6 +22,7 @@
 ## Tools
 
 * [Setting up AdGuard Home](tools/setting-up-adguard-home.md)
+* [SSH key authentication on Windows](tools/ssh-key-authentication-on-windows.md)
 
 ## Networking
 
