@@ -5,6 +5,7 @@
 ## Linux
 
 * [Using GPG to encrypt/decrypt files or messages](linux/gpg.md)
+* [Understanding SUID, SGID and Sticky Bit](linux/understanding-suid-sgid-and-sticky-bit.md)
 
 ## Python
 
