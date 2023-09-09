@@ -306,4 +306,7 @@ In the numeric mode, the number "1" in the thousands place represents the sticky
 
 In summary, the sticky bit in Linux permissions is used on directories to restrict the deletion or modification of files and directories within that directory to their respective owners or the superuser. It helps maintain security and integrity in shared directories, especially temporary and public directories where multiple users have access.
 
-> \[!info] When you only have SUID or SGID set, it displays _rwS_ but _rws_ when you have both SUID or SGID and executable(x) set for user or group. Likewise with Sticky bit, it displays _rwT_ when you only set Sticky bit but _rwt_ when you have both Sticky bit and executable(x) set for others.
+{% hint style="info" %}
+When you only have SUID or SGID set, it displays _rwS_ but _rws_ when you have both SUID or SGID and executable(x) set for user or group. Likewise with Sticky bit, it displays _rwT_ when you only set Sticky bit but _rwt_ when you have both Sticky bit and executable(x) set for others.
+{% endhint %}
+
