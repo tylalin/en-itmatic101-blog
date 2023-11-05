@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1618044619888-009e412ff12a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwxfHxhdXRoZW50aWNhdGlvbnxlbnwwfHx8fDE2OTkxNzc5OTZ8MA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # SSH key authentication on Windows
 
 SSH is an amazing remote access method we have been using for remote management in \*Unix admin world, and its key authentication is even better for security and easy access to target machines. However, it is quite unusual for Windows admin to use SSH to manage their Windows servers and clients although they can do almost everything with Powershell. The normal workflow for Windows admin would be RDP into the Windows servers to administer and do the daily stuffs in the GUI. Throughout my IT career, I have never seen a Windows box has been setup without GUI and RDP for system management.&#x20;
