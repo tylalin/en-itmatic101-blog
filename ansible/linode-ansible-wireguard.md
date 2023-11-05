@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1554279652-51eee9372f32?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwxMHx8Z3VhcmR8ZW58MHx8fHwxNjk5MTc3ODEwfDA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Ansible WireGuard workflow on Linode
 
 Spinning up a VPS on Linode with your favourite Linux distro and setting up a WireGuard server is truly easy and intuitive on its WebUI portal. I have done the same process of a VPS setup and its required configuration so many times on all those different cloud providers like Digital Ocean and Vultr. They are almost the same in user experience on each portal. However, I can't use it all platforms at the same time to make my workflow template-able like any other things in life. Repeating the same damn things is a bit boring and tedious. I am not a big fan of repeating the same thing again and again as I am lazy enough to get bored easily. Thus always looking for the easier way to make my life less miserable. Plus the cloud is not supposed to consume like that. It has its own way; DevOps way of life. So I have invested a week worth of research and implementing Ansible playbooks to automate my workflow on Linode.&#x20;
