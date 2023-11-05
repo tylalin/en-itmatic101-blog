@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "networking/mikrotik-network-setup-with-containerlab.md",
+                "file": "linux/gpg.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "networking/mikrotik-network-setup-with-containerlab.md",
+                "file": "linux/gpg.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "networking/mikrotik-network-setup-with-containerlab.md",
+                "file": "linux/gpg.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "networking/mikrotik-network-setup-with-containerlab.md"
+                "file": "linux/gpg.md"
               }
             }
           },
@@ -164,8 +164,8 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
-    "networking/mikrotik-ipsec-tunnel-setup.md",
     "linux/understanding-suid-sgid-and-sticky-bit.md",
+    "networking/mikrotik-ipsec-tunnel-setup.md",
     "networking/mikrotik-network-setup-with-containerlab.md",
     "linux/gpg.md",
     "ansible/linode-ansible-wireguard.md",
