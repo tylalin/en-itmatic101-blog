@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1512314889357-e157c22f938d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwzfHxzdGlja3l8ZW58MHx8fHwxNjk5MTc3NjM3fDA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Understanding SUID, SGID and Sticky Bit
 
 ## SUID (Set-User-ID) Bit
