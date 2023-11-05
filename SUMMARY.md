@@ -27,7 +27,7 @@
 
 ## Networking
 
-* [MikroTik network setup with Containerlab](networking/mikrotik-network-setup-with-containerlab.md)
+* [MikroTik networking lab setup with Containerlab](networking/mikrotik-network-setup-with-containerlab.md)
 * [Mikrotik IPsec Tunnel Setup](networking/mikrotik-ipsec-tunnel-setup.md)
 * [Mikrotik VLAN Trunking](networking/mikrotik-vlan-trunking.md)
 * [Mikrotik QinQ VLAN trunking and policy based routing](networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md)
