@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1609358905581-e5381612486e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwxfHx2YXVsdHxlbnwwfHx8fDE2OTkxNzc3NDd8MA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Ansible Vault
 
 ### Setting Ansible vault default editor
@@ -41,7 +47,7 @@ $ANSIBLE_VAULT;1.1;AES256
 31643731343666353761633563633634326139396230313734333034653238303166
 ```
 
-### Encrypting the existing file 
+### Encrypting the existing file&#x20;
 
 ```bash
 # Create a dummy text file
@@ -103,7 +109,7 @@ Decryption successful
 # It will decrypt the vault.yml file into plain text now 
 ```
 
- **Note:** Because of the increased likelihood of accidentally committing sensitive data to your project repository, the `ansible-vault decrypt` command is only suggested for when you wish to remove encryption from a file permanently. If you need to view or edit a vault encrypted file, it is usually better to use the `ansible-vault view` or `ansible-vault edit` commands, respectively.
+&#x20;**Note:** Because of the increased likelihood of accidentally committing sensitive data to your project repository, the `ansible-vault decrypt` command is only suggested for when you wish to remove encryption from a file permanently. If you need to view or edit a vault encrypted file, it is usually better to use the `ansible-vault view` or `ansible-vault edit` commands, respectively.
 
 ### Changing the password of encrypted files
 
@@ -117,7 +123,7 @@ Confirm New Vault password:
 Rekey successful
 ```
 
-### Running Ansible with Vault-Encrypted Files <a id="running-ansible-with-vault-encrypted-files"></a>
+### Running Ansible with Vault-Encrypted Files <a href="#running-ansible-with-vault-encrypted-files" id="running-ansible-with-vault-encrypted-files"></a>
 
 ```bash
 # Use --ask-vault-pass option to get interactive prompt for vault password
@@ -128,7 +134,7 @@ $ ansible --ask-vault-pass -bK -m copy -a 'src=secret_key dest=/tmp/secret_key m
 $ ansible --vault-password-file=.vault_pass -bK -m copy -a 'src=secret_key dest=/tmp/secret_key mode=0600 owner=root group=root' localhost
 ```
 
-#### Reading the Password File Automatically <a id="reading-the-password-file-automatically"></a>
+#### Reading the Password File Automatically <a href="#reading-the-password-file-automatically" id="reading-the-password-file-automatically"></a>
 
 ```bash
 # Method 1
@@ -148,5 +154,4 @@ vault_password_file = ./.vault_pass
 $ ansible -bK -m copy -a 'src=secret_key dest=/tmp/secret_key mode=0600 owner=root group=root' localhost
 ```
 
- Now, when you run commands that require decryption, you will no longer be prompted for the vault password. As a bonus, `ansible-vault` will not only use the password in the file to decrypt any files, but it will apply the password when creating new files with `ansible-vault create` and `ansible-vault encrypt`.
-
+&#x20;Now, when you run commands that require decryption, you will no longer be prompted for the vault password. As a bonus, `ansible-vault` will not only use the password in the file to decrypt any files, but it will apply the password when creating new files with `ansible-vault create` and `ansible-vault encrypt`.
