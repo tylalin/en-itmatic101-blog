@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1588200908342-23b585c03e26?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw5fHx0ZW1wbGF0ZXxlbnwwfHx8fDE2OTkxNzc4ODJ8MA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Customise VM template with cloud-init on Promox
 
 Promox is my favourite KVM backend virtualisation implementation for my home lab and test environment. Very easy to install and configure to start with compared to the full blonde KVM on Debian based or Red Hat based Linux distribution. It could have been easier these days since the Cockpit web admin interface has matured a lot with all virtualisation related add-on. But I have been using Promox as my preferred virtualisation platform for quite some times now so might as well stick to it rather than mucking around with Cockpit.&#x20;
