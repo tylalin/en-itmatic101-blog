@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux/gpg.md",
+                "file": "networking/mikrotik-ipsec-tunnel-setup.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux/gpg.md",
+                "file": "networking/mikrotik-ipsec-tunnel-setup.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux/gpg.md",
+                "file": "networking/mikrotik-ipsec-tunnel-setup.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux/gpg.md"
+                "file": "networking/mikrotik-ipsec-tunnel-setup.md"
               }
             }
           },
@@ -165,9 +165,9 @@
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
     "linux/understanding-suid-sgid-and-sticky-bit.md",
+    "linux/gpg.md",
     "networking/mikrotik-ipsec-tunnel-setup.md",
     "networking/mikrotik-network-setup-with-containerlab.md",
-    "linux/gpg.md",
     "ansible/linode-ansible-wireguard.md",
     "ansible/ansible-vault.md",
     "networking/mikrotik-vlan-trunking.md",
