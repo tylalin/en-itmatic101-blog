@@ -11,10 +11,11 @@
             "id": "77ed54a98f00d967",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "markdown",
               "state": {
-                "staged": false,
-                "file": "linux/understanding-suid-sgid-and-sticky-bit.md"
+                "file": "linux/understanding-suid-sgid-and-sticky-bit.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -84,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "linux/understanding-suid-sgid-and-sticky-bit.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "linux/understanding-suid-sgid-and-sticky-bit.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -121,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "linux/understanding-suid-sgid-and-sticky-bit.md"
+              }
             }
           },
           {
@@ -157,10 +162,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "875c481005b8ea59",
+  "active": "77ed54a98f00d967",
   "lastOpenFiles": [
-    "linux/understanding-suid-sgid-and-sticky-bit.md",
     "linux/gpg.md",
+    "linux/understanding-suid-sgid-and-sticky-bit.md",
     "ansible/linode-ansible-wireguard.md",
     "ansible/ansible-vault.md",
     "networking/mikrotik-vlan-trunking.md",

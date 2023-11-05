@@ -309,6 +309,3 @@ In summary, the sticky bit in Linux permissions is used on directories to restri
 {% hint style="info" %}
 When you only have SUID or SGID set, it displays _rwS_ but _rws_ when you have both SUID or SGID and executable(x) set for user or group. Likewise with Sticky bit, it displays _rwT_ when you only set Sticky bit but _rwt_ when you have both Sticky bit and executable(x) set for others.
 {% endhint %}
-
-THE END.
-
