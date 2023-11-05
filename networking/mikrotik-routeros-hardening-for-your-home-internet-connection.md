@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1516321165247-4aa89a48be28?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwxMHx8aW50ZXJuZXR8ZW58MHx8fHwxNjk5MTc4MjQ3fDA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Mikrotik RouterOS Hardening for your home internet connection
 
 The price point of Mikrotik hAP devices are quite reasonable and fair compared to any major off the shelf brands like Netgear, TP-Link, D-Link, etc., Therefore, I have been deploying Mikrotik devices for friends and family for home internet connection. It is a kind of overkill for home router to be managed and maintained but there are many ways to do it properly if you know how to use the RouterOS. The [Mikrotik Pro](https://play.google.com/store/apps/details?id=com.mikrotik.android.tikapp\&hl=en\&gl=US\&pli=1) mobile app is one of the easy ways to remote access and administer the Mikrotik hAP devices.&#x20;
