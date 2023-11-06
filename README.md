@@ -4,9 +4,9 @@ cover: >-
 coverY: 0
 ---
 
-# Tech Blog
+# ITmatic101 - Tech Blog
 
-**Written by**: Tyla Lin\
+**Author**: Tyla Lin\
 **LinkedIn**: [https://www.linkedin.com/in/tyla-lin/](https://www.linkedin.com/in/tyla-lin/)\
 **YouTube**: [https://www.youtube.com/@itmatic1017](https://www.youtube.com/@itmatic1017)\
 **Email**: itmatic101@gmail.com
