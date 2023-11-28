@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SUMMARY.md",
+                "file": "offsec/ssh.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SUMMARY.md",
+                "file": "offsec/ssh.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SUMMARY.md",
+                "file": "offsec/ssh.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SUMMARY.md"
+                "file": "offsec/ssh.md"
               }
             }
           },
@@ -164,6 +164,11 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "SUMMARY.md",
+    "README.md",
+    "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
+    "offsec/ssh.md",
+    "offsec",
     "networking/mikrotik-ipsec-tunnel-setup.md",
     "linux/understanding-suid-sgid-and-sticky-bit.md",
     "linux/gpg.md",
@@ -176,9 +181,6 @@
     "networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md",
     "python/virtualenv.md",
     "tools/ssh-key-authentication-on-windows.md",
-    "tools/setting-up-adguard-home.md",
-    "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
-    "SUMMARY.md",
-    "README.md"
+    "tools/setting-up-adguard-home.md"
   ]
 }
