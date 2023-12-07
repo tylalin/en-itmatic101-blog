@@ -73,3 +73,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Wed Nov  1 07:09:41 2023 -- 1 IP address (1 host up) scanned in 405.22 seconds
 ```
 
+As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, smb and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
+## searchsploit
+
