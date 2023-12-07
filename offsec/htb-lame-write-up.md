@@ -76,3 +76,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, smb and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
 ## searchsploit
 
+I started with vsFTPd as shown below.
+
+![[Pasted image 20231207230603.png]]
