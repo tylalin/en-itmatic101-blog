@@ -3,9 +3,9 @@ cover: >-
   https://images.unsplash.com/photo-1625768375325-ce6bdd4a2329?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwyfHxsYW1lfGVufDB8fHx8MTcwMTk0ODYxOXww&ixlib=rb-4.0.3&q=85
 coverY: 0
 ---
-# Recon
-
-## nmap
+# HTB: Lame Write-Up 
+## Recon
+### nmap
 
 Let's start with nmap to perform active scanning on the target machine. 
 
@@ -71,7 +71,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 ```
 
 As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, smb and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
-## searchsploit
+### searchsploit
 
 Let's start with vsFTPd for searchsploit as shown below.
 
