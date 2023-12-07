@@ -36,4 +36,4 @@
 
 ## 💀 OffSec
 
-* [SSH](offsec/ssh.md)
+* [HTB: Lame Write-Up](offsec/htb-lame-write-up.md)
