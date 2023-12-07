@@ -4,8 +4,6 @@ cover: >-
 coverY: 0
 ---
 
-# HTB: Lame Write-Up
-
 # Recon
 
 ## nmap
