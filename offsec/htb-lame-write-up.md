@@ -70,10 +70,11 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Wed Nov  1 07:09:41 2023 -- 1 IP address (1 host up) scanned in 405.22 seconds
 ```
 
-As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, smb and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
+As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, samba and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
 ### searchsploit
+#### vsftpd
 
-Let's start with vsFTPd for searchsploit as shown below.
+Let's start with vsftpd for searchsploit as shown below.
 
 ```bash
 searchsploit vsFTPd  
@@ -177,3 +178,6 @@ class Metasploit3 < Msf::Exploit::Remote
 # More Ruby Code HERE.....
 ```
 
+#### samba
+
+There is a well-known vulnerability in samba 
