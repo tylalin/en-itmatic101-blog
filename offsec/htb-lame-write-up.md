@@ -76,6 +76,21 @@ Service detection performed. Please report any incorrect results at https://nmap
 As you can see in the output of nmap scan, there are a few things opening for us to exploit such as vsftp, ssh, smb and distccd. From what we know about the target, let's explore those options in details by utilising searchsploit for the potential exploits and vulnerabilities. 
 ## searchsploit
 
-I started with vsFTPd as shown below.
+Let's start with vsFTPd for searchsploit as shown below.
 
-![[Pasted image 20231207230603.png]]
+```bash
+searchsploit vsFTPd  
+----------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                             |  Path
+----------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+vsftpd 2.0.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                             | linux/dos/5814.pl
+vsftpd 2.0.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                             | windows/dos/31818.sh
+vsftpd 2.0.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                             | windows/dos/31819.pl
+vsftpd 2.3.2 - Denial of Service                                                                                                                           | linux/dos/16270.c
+vsftpd 2.3.4 - Backdoor Command Execution                                                                                                                  | unix/remote/49757.py
+vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)                                                                                                     | unix/remote/17491.rb
+vsftpd 3.0.3 - Remote Denial of Service                                                                                                                    | multiple/remote/49719.py
+----------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+Papers: No Results
+```
