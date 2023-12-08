@@ -438,4 +438,36 @@ end
 At this point, I have collected enough information about the target in recon stage. Next step is to actually exploit those weaknesses. 
 
 ## Exploits
+### samba
+
+I run a quick scan with smbmap to see if we have any attack surface on the target machine. 
+
+```bash
+smbmap -H 10.10.10.3
+
+    ________  ___      ___  _______   ___      ___       __         _______
+   /"       )|"  \    /"  ||   _  "\ |"  \    /"  |     /""\       |   __ "\
+  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /' /\  \     |:  ____/
+    __/  \   |: \.        |(|  _  \  |: \.        |  //  __'  \    (|  /
+   /" \   :) |.  \    /:  ||: |_)  :)|.  \    /:  | /   /  \   \  /|__/ \
+  (_______/  |___|\__/|___|(_______/ |___|\__/|___|(___/    \___)(_______)
+ -----------------------------------------------------------------------------
+     SMBMap - Samba Share Enumerator | Shawn Evans - ShawnDEvans@gmail.com
+                     https://github.com/ShawnDEvans/smbmap
+
+[*] Detected 1 hosts serving SMB
+[*] Established 1 SMB session(s)                                
+                                                                                                    
+[+] IP: 10.10.10.3:445  Name: 10.10.10.3                Status: Authenticated
+        Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        print$                                                  NO ACCESS       Printer Drivers
+        tmp                                                     READ, WRITE     oh noes!
+        opt                                                     NO ACCESS
+        IPC$                                                    NO ACCESS       IPC Service (lame server (Samba 3.0.20-Debian))
+        ADMIN$                                                  NO ACCESS       IPC Service (lame server (Samba 3.0.20-Debian))
+
+```
+
 
