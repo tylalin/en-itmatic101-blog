@@ -4,7 +4,7 @@ cover: >-
 coverY: 0
 ---
 # HTB: Lame Write-Up 
-## Recon
+## Recons
 ### nmap
 
 Let's start with nmap to perform active scanning on the target machine. 
@@ -436,4 +436,6 @@ end
 ```
 
 At this point, I have collected enough information about the target in recon stage. Next step is to actually exploit those weaknesses. 
+
+## Exploits
 
