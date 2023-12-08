@@ -678,13 +678,15 @@ cd debian-ssh/common_keys
 sudo tar jxf debian_ssh_rsa_2048_x86.tar.bz2
 cd rsa
 
-# grep the pubkey to match its private key in the rsa directory
+# grep the content of pubkey to match its private key in the rsa directory
 grep -lr AAAAB3NzaC1yc2EAAAABIwAAAQEApmGJFZNl0ibMNALQx7M6sGGoi4KNmj6PVxpbpG70lShHQqldJkcteZZdPFSbW76IUiPR0Oh+WBV0x1c6iPL/0zUYFHyFKAz1e6/5teoweG1jr2qOffdomVhvXXvSjGaSFwwOYB8R0QxsOWWTQTYSeBa66X6e777GVkHCDLYgZSo8wWr5JXln/Tw7XotowHr8FEGvw2zW1krU3Zo9Bzp0e0ac2U+qUGIzIu/WwgztLZs5/D9IyhtRWocyQPE+kcP+Jz2mt4y1uA73KqoXfdw5oGUkxdFo9f1nu2OwkjOc+Wv8Vw7bwkf+1RgiOMgiJ5cCs4WocyVxsXovcNnbALTp3w==
-57c3115d77c56390332dc5c49978627a-5429.pub
+57c3115d77c56390332dc5c49978627a-5429.pub # <--- MATCHING PUBKEY
 
 
 #################################################################################
 
+
+# now ssh into the target machine with the matching private key as root
 ssh -i 57c3115d77c56390332dc5c49978627a-5429 root@10.10.10.3
 The authenticity of host '10.10.10.3 (10.10.10.3)' can't be established.
 DSA key fingerprint is SHA256:kgTW5p1Amzh5MfHn9jIpZf2/pCIZq2TNrG9sh+fy95Q.
