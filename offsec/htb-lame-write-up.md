@@ -490,6 +490,10 @@ id
 uid=0(root) gid=0(root)
 whoami
 root
+
+# upgrade shell to bash 
+python -c 'import pty;pty.spawn("/bin/bash")'
+root@lame:/#
 ```
 
-As we can see in the above, the 
+As we can see in the above, it pops as root and it has been pwned. The shell is upgraded to bash with Python as well. 
