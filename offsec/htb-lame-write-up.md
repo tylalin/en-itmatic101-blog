@@ -709,3 +709,7 @@ http://help.ubuntu.com/
 You have new mail.
 root@lame:~# 
 ```
+
+## Conclusion
+
+HTB: Lame is rated as easy on the platform but there are a lot of things I can learn with it to start my OffSec journey. Note that this is my very first box to play with on HTB platform. I have a good feeling about practising my OffSec skill on the platform. It worths every penny I have paid for its subscription. 
