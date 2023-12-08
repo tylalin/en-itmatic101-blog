@@ -308,3 +308,10 @@ class Metasploit3 < Msf::Exploit::Remote
 end
 ```
 
+#### distcc
+
+Another attack vector we have 
+
+```bash
+
+```
