@@ -37,3 +37,4 @@
 ## 💀 OffSec
 
 * [HTB: Lame Write-Up](offsec/htb-lame-write-up.md)
+* [HTB: Bank Write-Up](offsec/htb-bank-write-up.md)
