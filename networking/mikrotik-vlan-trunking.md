@@ -154,20 +154,23 @@ add disabled=yes interface=ether1
 set name=mtr3
 ```
 
-Alternatively, we can configure its VLAN without vlan-filtering as below. Note that the ingress is configured at bridge ports and egress at bridge vlan.
+Alternatively, we can configure its VLAN setup in a very similar manner but it is only fancier with relevant frame-types option. Note that the ingress is configured at bridge ports and egress at bridge vlans.
 
 ```
-# Assign the relevant interfaces with its PVID and the trunk port to the bridge with its frame-types
-# INGRESS
+# Create one main bridge which will acts like a switch with VLAN filtering
+/interface bridge
+add name=sw-br vlan-filtering=yes
+
+# Assign the relevant interfaces with its PVID and the trunk port to the bridge with its frame-types for ingress configuration
 /interface bridge port
 add bridge=sw-br interface=ether2 pvid=10 frame-types=admit-only-untagged-and-priority-tagged
 add bridge=sw-br interface=ether3 pvid=20 frame-types=admit-only-untagged-and-priority-tagged
 add bridge=sw-br interface=ether1 frame-types=admit-only-vlan-tagged
 
-# Configure VLAN tagging and untagging for each vlan with respective interfaces on the bridge
+# Configure VLAN trunking on ether1 interface for egress configuration
 /interface bridge vlan
-add bridge=sw-br tagged=ether1 untagged=ether2 vlan-ids=10
-add bridge=sw-br tagged=ether1 untagged=ether3 vlan-ids=20
+add bridge=sw-br tagged=ether1 vlan-ids=10
+add bridge=sw-br tagged=ether1 vlan-ids=20
 ```
 
 As much compact as it can be for the configuration on this mtr3 device, it is the most efficient way to configure the Mikrotik device with RouterOS for switching. &#x20;
