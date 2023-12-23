@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "offsec/htb-lame-write-up.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "offsec/htb-lame-write-up.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "offsec/htb-lame-write-up.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "offsec/htb-lame-write-up.md"
+                "file": "offsec/htb-bank-write-up.md"
               }
             }
           },
@@ -162,11 +162,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7ce970c04e3ae84e",
+  "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "offsec/htb-lame-write-up.md",
     "networking/mikrotik-vlan-trunking.md",
     "offsec/htb-bank-write-up.md",
-    "offsec/htb-lame-write-up.md",
     "Pasted image 20231207230603.png",
     "SUMMARY.md",
     "README.md",
