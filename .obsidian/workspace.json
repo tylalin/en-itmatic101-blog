@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "networking/mikrotik-vlan-trunking.md",
-                "mode": "source",
+                "file": "offsec/htb-lame-write-up.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "29075c01e939b31b",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "networking/mikrotik-vlan-trunking.md",
+                "file": "offsec/htb-lame-write-up.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "networking/mikrotik-vlan-trunking.md",
+                "file": "offsec/htb-lame-write-up.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "networking/mikrotik-vlan-trunking.md"
+                "file": "offsec/htb-lame-write-up.md"
               }
             }
           },
@@ -150,7 +150,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -164,6 +165,7 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "networking/mikrotik-vlan-trunking.md",
     "offsec/htb-bank-write-up.md",
     "offsec/htb-lame-write-up.md",
     "Pasted image 20231207230603.png",
@@ -178,7 +180,6 @@
     "networking/mikrotik-network-setup-with-containerlab.md",
     "ansible/linode-ansible-wireguard.md",
     "ansible/ansible-vault.md",
-    "networking/mikrotik-vlan-trunking.md",
     "networking/mikrotik-use-cases-pppoe-ecmp-failover-recursive-routing-and-wireguard.md",
     "networking/mikrotik-routeros-hardening-for-your-home-internet-connection.md",
     "networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md",
