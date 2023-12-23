@@ -242,7 +242,7 @@ Shellcodes: No Results
 Papers: No Results
 ```
 
-Based on the Google results of that CVE, I have found an entry on exploit-db.com - https://www.exploit-db.com/exploits/16320 which describes as "Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)". Let's delve in a bit more into the exploit. It affects the samba version 3.0.20 to 3.0.25rc3 so it could be the best bet to mark it a potential attack vector. 
+Based on the Google results of that CVE, I have found an entry on [exploit-db.com](https://www.exploit-db.com/exploits/16320) which describes as "Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)". Let's delve in a bit more into the exploit. It affects the samba version 3.0.20 to 3.0.25rc3 so it could be the best bet to mark it a potential attack vector. 
 
 ```bash
 searchsploit -x 16320
