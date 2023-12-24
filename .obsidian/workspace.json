@@ -130,14 +130,6 @@
             }
           },
           {
-            "id": "875c481005b8ea59",
-            "type": "leaf",
-            "state": {
-              "type": "git-history-view",
-              "state": {}
-            }
-          },
-          {
             "id": "7ce970c04e3ae84e",
             "type": "leaf",
             "state": {
@@ -146,11 +138,11 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 472.5
+    "width": 330.5
   },
   "left-ribbon": {
     "hiddenItems": {
