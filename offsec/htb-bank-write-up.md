@@ -8,7 +8,7 @@ coverY: 0
 
 ## Recons
 
-
+nmap
 
 ## Exploits
 
