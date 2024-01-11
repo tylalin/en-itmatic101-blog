@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homelab/setting-up-adguard-home.md",
+                "file": "homelab/my-home-lab-evolution.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homelab/setting-up-adguard-home.md",
+                "file": "homelab/my-home-lab-evolution.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homelab/setting-up-adguard-home.md",
+                "file": "homelab/my-home-lab-evolution.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homelab/setting-up-adguard-home.md"
+                "file": "homelab/my-home-lab-evolution.md"
               }
             }
           },
@@ -156,9 +156,9 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "homelab/setting-up-adguard-home.md",
     "homelab/my-home-lab-evolution.md",
     "homelab/ssh-key-authentication-on-windows.md",
-    "homelab/setting-up-adguard-home.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "homelab",
     "tools/ssh-key-authentication-on-windows.md",
