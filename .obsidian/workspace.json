@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homelab/ssh-key-authentication-on-windows.md",
+                "file": "homelab/setting-up-adguard-home.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homelab/ssh-key-authentication-on-windows.md",
+                "file": "homelab/setting-up-adguard-home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homelab/ssh-key-authentication-on-windows.md",
+                "file": "homelab/setting-up-adguard-home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homelab/ssh-key-authentication-on-windows.md"
+                "file": "homelab/setting-up-adguard-home.md"
               }
             }
           },
@@ -156,9 +156,10 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "homelab/my-home-lab-evolution.md",
+    "homelab/ssh-key-authentication-on-windows.md",
     "homelab/setting-up-adguard-home.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
-    "homelab/ssh-key-authentication-on-windows.md",
     "homelab",
     "tools/ssh-key-authentication-on-windows.md",
     "tools/setting-up-adguard-home.md",
