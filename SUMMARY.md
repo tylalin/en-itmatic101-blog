@@ -20,10 +20,10 @@
 
 * [Customise VM template with cloud-init on Promox](virtualisation/customise-vm-template-with-cloud-init-on-promox.md)
 
-## ⚒ Tools
+## ⚒ Homelab
 
-* [Setting up AdGuard Home](tools/setting-up-adguard-home.md)
-* [SSH key authentication on Windows](tools/ssh-key-authentication-on-windows.md)
+* [Setting up AdGuard Home](homelab/setting-up-adguard-home.md)
+* [SSH key authentication on Windows](homelab/ssh-key-authentication-on-windows.md)
 
 ## 🧲 Networking
 
