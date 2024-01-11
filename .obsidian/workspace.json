@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
+                "file": "homelab/ssh-key-authentication-on-windows.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
+                "file": "homelab/ssh-key-authentication-on-windows.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
+                "file": "homelab/ssh-key-authentication-on-windows.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md"
+                "file": "homelab/ssh-key-authentication-on-windows.md"
               }
             }
           },
@@ -156,6 +156,10 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "homelab/setting-up-adguard-home.md",
+    "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
+    "homelab/ssh-key-authentication-on-windows.md",
+    "homelab",
     "tools/ssh-key-authentication-on-windows.md",
     "tools/setting-up-adguard-home.md",
     "offsec/htb-bank-write-up.md",
@@ -164,7 +168,6 @@
     "Pasted image 20231207230603.png",
     "SUMMARY.md",
     "README.md",
-    "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "offsec/ssh.md",
     "offsec",
     "networking/mikrotik-ipsec-tunnel-setup.md",
