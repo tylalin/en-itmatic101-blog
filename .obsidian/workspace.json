@@ -13,24 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
                 "mode": "source",
                 "source": false
               }
             }
-          },
-          {
-            "id": "b7aaba4fe730a286",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.5.3"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -96,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "offsec/htb-bank-write-up.md"
+                "file": "virtualisation/customise-vm-template-with-cloud-init-on-promox.md"
               }
             }
           },
@@ -165,10 +154,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b7aaba4fe730a286",
+  "active": "77ed54a98f00d967",
   "lastOpenFiles": [
-    "offsec/htb-lame-write-up.md",
+    "tools/ssh-key-authentication-on-windows.md",
+    "tools/setting-up-adguard-home.md",
     "offsec/htb-bank-write-up.md",
+    "offsec/htb-lame-write-up.md",
     "networking/mikrotik-vlan-trunking.md",
     "Pasted image 20231207230603.png",
     "SUMMARY.md",
@@ -185,8 +176,6 @@
     "networking/mikrotik-use-cases-pppoe-ecmp-failover-recursive-routing-and-wireguard.md",
     "networking/mikrotik-routeros-hardening-for-your-home-internet-connection.md",
     "networking/mikrotik-qinq-vlan-trunking-and-policy-based-routing.md",
-    "python/virtualenv.md",
-    "tools/ssh-key-authentication-on-windows.md",
-    "tools/setting-up-adguard-home.md"
+    "python/virtualenv.md"
   ]
 }
