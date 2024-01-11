@@ -22,6 +22,7 @@
 
 ## ⚒ Homelab
 
+* [My Home Lab Evolution](homelab/my-home-lab-evolution.md)
 * [Setting up AdGuard Home](homelab/setting-up-adguard-home.md)
 * [SSH key authentication on Windows](homelab/ssh-key-authentication-on-windows.md)
 
