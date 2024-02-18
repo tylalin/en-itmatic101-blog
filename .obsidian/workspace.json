@@ -11,12 +11,8 @@
             "id": "77ed54a98f00d967",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "homelab/my-home-lab-evolution.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homelab/my-home-lab-evolution.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homelab/my-home-lab-evolution.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -154,7 +148,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "77ed54a98f00d967",
+  "active": "824b7175374bc9fa",
   "lastOpenFiles": [
     "homelab/setting-up-adguard-home.md",
     "homelab/my-home-lab-evolution.md",
