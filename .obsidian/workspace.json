@@ -11,8 +11,12 @@
             "id": "77ed54a98f00d967",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "homelab/my-home-lab-setup.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "homelab/my-home-lab-setup.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "homelab/my-home-lab-setup.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "homelab/my-home-lab-setup.md"
+              }
             }
           },
           {
@@ -146,11 +154,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7ce970c04e3ae84e",
+  "active": "77ed54a98f00d967",
   "lastOpenFiles": [
-    "homelab/my-home-lab-evolution.md",
     "homelab/setting-up-adguard-home.md",
     "homelab/ssh-key-authentication-on-windows.md",
+    "homelab/my-home-lab-setup.md",
+    "homelab/my-home-lab-evolution.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "homelab",
     "tools/ssh-key-authentication-on-windows.md",
