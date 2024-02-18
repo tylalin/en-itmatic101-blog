@@ -118,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "homelab/my-home-lab-evolution.md"
-              }
+              "state": {}
             }
           },
           {
@@ -148,10 +146,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "824b7175374bc9fa",
+  "active": "7ce970c04e3ae84e",
   "lastOpenFiles": [
-    "homelab/setting-up-adguard-home.md",
     "homelab/my-home-lab-evolution.md",
+    "homelab/setting-up-adguard-home.md",
     "homelab/ssh-key-authentication-on-windows.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "homelab",
