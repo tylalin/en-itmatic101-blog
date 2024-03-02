@@ -157,8 +157,8 @@
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
     "homelab/setting-up-adguard-home.md",
-    "homelab/ssh-key-authentication-on-windows.md",
     "homelab/my-home-lab-setup.md",
+    "homelab/ssh-key-authentication-on-windows.md",
     "homelab/my-home-lab-evolution.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "homelab",
