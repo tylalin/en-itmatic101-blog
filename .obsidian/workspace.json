@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "offsec/kali-linux-with-vagrant-for-htb.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "offsec/kali-linux-with-vagrant-for-htb.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "offsec/htb-bank-write-up.md",
+                "file": "offsec/kali-linux-with-vagrant-for-htb.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "offsec/htb-bank-write-up.md"
+                "file": "offsec/kali-linux-with-vagrant-for-htb.md"
               }
             }
           },
@@ -156,8 +156,8 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "offsec/htb-bank-write-up.md",
+    "conflict-files-obsidian-git.md",
     "offsec/htb-lame-write-up.md",
     "offsec/kali-linux-with-vagrant-for-htb.md",
     "homelab/my-home-lab-setup.md",
