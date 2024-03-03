@@ -2,7 +2,7 @@
 
 * [ITmatic101 - Tech Blog](README.md)
 
-## 🧙♂ Linux
+## 🧙‍♂️ Linux
 
 * [Using GPG to encrypt/decrypt files or messages](linux/gpg.md)
 * [Understanding SUID, SGID and Sticky Bit](linux/understanding-suid-sgid-and-sticky-bit.md)
@@ -20,7 +20,7 @@
 
 * [Customise VM template with cloud-init on Promox](virtualisation/customise-vm-template-with-cloud-init-on-promox.md)
 
-## ⚒ Homelab
+## ⚒️ Homelab
 
 * [My Home Lab Setup](homelab/my-home-lab-setup.md)
 * [Setting up AdGuard Home](homelab/setting-up-adguard-home.md)
@@ -37,5 +37,6 @@
 
 ## 💀 OffSec
 
+* [Kali Linux with Vagrant for HTB](offsec/kali-linux-with-vagrant-for-htb.md)
 * [HTB: Lame Write-Up](offsec/htb-lame-write-up.md)
 * [HTB: Bank Write-Up](offsec/htb-bank-write-up.md)
