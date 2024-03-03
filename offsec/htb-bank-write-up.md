@@ -43,6 +43,42 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Sun Nov 12 02:19:28 2023 -- 1 IP address (1 host up) scanned in 83.86 seconds
 ```
 
-There are three port
+The provided Nmap scan result reveals information about a target host with the IP address 10.10.10.29. Here's a breakdown of the findings:
+
+1. **SSH Service (Port 22)**:
+   - State: Open
+   - Service: SSH (Secure Shell)
+   - Version: OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.8
+   - Encryption Key Types:
+     - DSA (Digital Signature Algorithm)
+     - RSA (Rivest-Shamir-Adleman)
+     - ECDSA (Elliptic Curve Digital Signature Algorithm)
+     - ED25519 (Edwards-curve Digital Signature Algorithm)
+   - Operating System: Ubuntu Linux
+   
+   This indicates that the SSH service is available on the host, allowing secure remote access. The version information can be useful for identifying potential vulnerabilities or compatibility issues.
+
+2. **Domain Service (Port 53)**:
+   - State: Open
+   - Service: Domain (DNS - Domain Name System)
+   - Version: ISC BIND 9.9.5-3ubuntu0.14 (Ubuntu Linux)
+   
+   The Domain service being open suggests that this host is likely responsible for DNS resolution within the network. The version information can help in assessing potential vulnerabilities or compatibility with other DNS systems.
+
+3. **HTTP Service (Port 80)**:
+   - State: Open
+   - Service: HTTP (Hypertext Transfer Protocol)
+   - Version: Apache httpd 2.4.7 (Ubuntu)
+   - Server Header: Apache/2.4.7 (Ubuntu)
+   - HTTP Methods Supported: POST, OPTIONS, GET, HEAD
+   - HTTP Title: Apache2 Ubuntu Default Page: It works
+   
+   The HTTP service being open indicates that the host is running a web server, serving content over the HTTP protocol. The version information can be valuable for understanding potential vulnerabilities or compatibility issues with web applications running on this server.
+
+4. **Additional Information**:
+   - Latency: The host responded with a latency of 0.33 seconds, indicating a relatively quick response time.
+   - Operating System: Detected as Linux, with the Common Platform Enumeration (CPE) specifying the Linux kernel.
+
+This Nmap scan provides valuable insights into the services running on the target host, allowing for further analysis and potential identification of security risks or areas of interest for further investigation.
 ## Exploits
 
