@@ -419,21 +419,21 @@ $ nuclei -list bank.urls                                                        
 [INF] New templates added in latest release: 73                                                         
 [INF] Templates loaded for current scan: 7278                                                           
 [INF] Executing 5264 signed templates from projectdiscovery/nuclei-templates                            
-[WRN] Executing 2028 unsigned templates. Use with caution.                                              
-[INF] Targets loaded for current scan: 4                                                                
-[INF] Templates clustered: 1252 (Reduced 4876 Requests)                                                 
-[caa-fingerprint] [dns] [info] ns.bank.htb                                                              
-[caa-fingerprint] [dns] [info] chris.bank.htb                                                           
-[caa-fingerprint] [dns] [info] bank.htb                                                                 
-[INF] Using Interactsh Server: oast.live                                                                
-[options-method] [http] [info] http://www.bank.htb [POST,OPTIONS,GET,HEAD]                              
-[options-method] [http] [info] http://chris.bank.htb [POST,OPTIONS,GET,HEAD]                            
-[options-method] [http] [info] http://ns.bank.htb [POST,OPTIONS,GET,HEAD]                               
-[apache-detect] [http] [info] http://chris.bank.htb [Apache/2.4.7 (Ubuntu)]                             
+[WRN] Executing 2028 unsigned templates. Use with caution.                        
+[INF] Targets loaded for current scan: 4                                         
+[INF] Templates clustered: 1252 (Reduced 4876 Requests)                          
+[caa-fingerprint] [dns] [info] ns.bank.htb                                       
+[caa-fingerprint] [dns] [info] chris.bank.htb                                    
+[caa-fingerprint] [dns] [info] bank.htb                                          
+[INF] Using Interactsh Server: oast.live                                         
+[options-method] [http] [info] http://www.bank.htb [POST,OPTIONS,GET,HEAD]       
+[options-method] [http] [info] http://chris.bank.htb [POST,OPTIONS,GET,HEAD]     
+[options-method] [http] [info] http://ns.bank.htb [POST,OPTIONS,GET,HEAD]        
+[apache-detect] [http] [info] http://chris.bank.htb [Apache/2.4.7 (Ubuntu)]      
 [default-apache-test-all] [http] [info] http://chris.bank.htb [Apache/2.4.7 (Ubuntu)]                   
-[default-apache2-ubuntu-page] [http] [info] http://chris.bank.htb       [apache-detect] [http] [info] http://ns.bank.htb [Apache/2.4.7 (Ubuntu)]                                
+[default-apache2-ubuntu-page] [http] [info] http://chris.bank.htb       [apache-detect] [http] [info] http://ns.bank.htb [Apache/2.4.7 (Ubuntu)]       
 [default-apache-test-all] [http] [info] http://ns.bank.htb [Apache/2.4.7 (Ubuntu)]                      
-[default-apache2-ubuntu-page] [http] [info] http://ns.bank.htb          [apache-detect] [http] [info] http://www.bank.htb [Apache/2.4.7 (Ubuntu)]                               
+[default-apache2-ubuntu-page] [http] [info] http://ns.bank.htb          [apache-detect] [http] [info] http://www.bank.htb [Apache/2.4.7 (Ubuntu)]                
 [default-apache-test-all] [http] [info] http://www.bank.htb [Apache/2.4.7 (Ubuntu)]                     
 [default-apache2-ubuntu-page] [http] [info] http://www.bank.htb
 [CVE-2021-28164] [http] [medium] http://www.bank.htb/WEB-INF/web.xml
