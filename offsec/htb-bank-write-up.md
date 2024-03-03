@@ -305,10 +305,6 @@ Wrote HTML report to: aquatone_report.html
 # open aquatone_report.html with firefox
 $ firefox aquatone_report.html&
 
-# feh is a light-weight image viewer to png screenshots
-# install feh with apt so that we can view the screenshots of aquatone outputs
-$ sudo apt install feh
-
 ```
 
 It illustrates the process of using Aquatone, a reconnaissance tool, to capture screenshots and generate reports for a list of domain URLs. Here's a breakdown of each step:
@@ -347,12 +343,6 @@ It illustrates the process of using Aquatone, a reconnaissance tool, to capture 
    - Opens the generated HTML report in a web browser (Firefox) for review.
    ```
    firefox aquatone_report.html&
-   ```
-
-7. **View Screenshots with `feh`**:
-   - If desired, use the `feh` image viewer to browse the screenshots captured by Aquatone.
-   ```
-   sudo apt install feh
    ```
 
 These commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis.
@@ -414,6 +404,113 @@ Gobuster successfully identified several directories and paths on the target web
 
 #### Nuclei
 
-
+```bash
+# scan the target with nuclei 
+nuclei -list bank.urls                                                                      [34/384]
+                                                                                                        
+                     __     _                                                                           
+   ____  __  _______/ /__  (_)                                                                          
+  / __ \/ / / / ___/ / _ \/ /                                                                           
+ / / / / /_/ / /__/ /  __/ /                                                                            
+/_/ /_/\__,_/\___/_/\___/_/   v3.0.2                                                                    
+                                                                                                        
+                projectdiscovery.io                                                                     
+                                                                                                        
+[INF] nuclei-templates are not installed, installing...                                                 
+[INF] Successfully installed nuclei-templates at /home/vagrant/.local/nuclei-templates                  
+[INF] Current nuclei version: v3.0.2 (outdated)                                                         
+[INF] Current nuclei-templates version: v9.6.9 (latest)                                                 
+[INF] New templates added in latest release: 73                                                         
+[INF] Templates loaded for current scan: 7278                                                           
+[INF] Executing 5264 signed templates from projectdiscovery/nuclei-templates                            
+[WRN] Executing 2028 unsigned templates. Use with caution.                                              
+[INF] Targets loaded for current scan: 4                                                                
+[INF] Templates clustered: 1252 (Reduced 4876 Requests)                                                 
+[caa-fingerprint] [dns] [info] ns.bank.htb                                                              
+[caa-fingerprint] [dns] [info] chris.bank.htb                                                           
+[caa-fingerprint] [dns] [info] bank.htb                                                                 
+[INF] Using Interactsh Server: oast.live                                                                
+[options-method] [http] [info] http://www.bank.htb [POST,OPTIONS,GET,HEAD]                              
+[options-method] [http] [info] http://chris.bank.htb [POST,OPTIONS,GET,HEAD]                            
+[options-method] [http] [info] http://ns.bank.htb [POST,OPTIONS,GET,HEAD]                               
+[apache-detect] [http] [info] http://chris.bank.htb [Apache/2.4.7 (Ubuntu)]                             
+[default-apache-test-all] [http] [info] http://chris.bank.htb [Apache/2.4.7 (Ubuntu)]                   
+[default-apache2-ubuntu-page] [http] [info] http://chris.bank.htb       [apache-detect] [http] [info] http://ns.bank.htb [Apache/2.4.7 (Ubuntu)]                                
+[default-apache-test-all] [http] [info] http://ns.bank.htb [Apache/2.4.7 (Ubuntu)]                      
+[default-apache2-ubuntu-page] [http] [info] http://ns.bank.htb          [apache-detect] [http] [info] http://www.bank.htb [Apache/2.4.7 (Ubuntu)]                               
+[default-apache-test-all] [http] [info] http://www.bank.htb [Apache/2.4.7 (Ubuntu)]                     
+[default-apache2-ubuntu-page] [http] [info] http://www.bank.htb
+[CVE-2021-28164] [http] [medium] http://www.bank.htb/WEB-INF/web.xml
+[CVE-2021-28164] [http] [medium] http://ns.bank.htb/WEB-INF/web.xml
+[CVE-2021-28164] [http] [medium] http://bank.htb/WEB-INF/web.xml
+[CVE-2021-28164] [http] [medium] http://chris.bank.htb/WEB-INF/web.xml
+[http-missing-security-headers:permissions-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:x-frame-options] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:referrer-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:clear-site-data] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:strict-transport-security] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:content-security-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:x-content-type-options] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] http://chris.bank.htb
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:permissions-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:content-security-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:x-frame-options] [http] [info] http://www.bank.htb
+[http-missing-security-headers:x-content-type-options] [http] [info] http://www.bank.htb
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] http://www.bank.htb
+[http-missing-security-headers:referrer-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:clear-site-data] [http] [info] http://www.bank.htb
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] http://www.bank.htb
+[http-missing-security-headers:strict-transport-security] [http] [info] http://www.bank.htb
+[http-missing-security-headers:strict-transport-security] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:content-security-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:x-frame-options] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:referrer-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:permissions-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:x-content-type-options] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:clear-site-data] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] http://ns.bank.htb
+[http-missing-security-headers:strict-transport-security] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:x-content-type-options] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:clear-site-data] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:content-security-policy] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:permissions-policy] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:x-frame-options] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] http://bank.htb/login.ph
+p
+[http-missing-security-headers:referrer-policy] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] http://bank.htb/login.php
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] http://bank.htb/login.php
+[missing-sri] [http] [info] http://bank.htb/login.php [https://code.jquery.com/jquery.js]
+[waf-detect:apachegeneric] [http] [info] http://bank.htb/
+[waf-detect:apachegeneric] [http] [info] http://chris.bank.htb/
+[waf-detect:apachegeneric] [http] [info] http://ns.bank.htb/
+[waf-detect:apachegeneric] [http] [info] http://www.bank.htb/
+[ssh-password-auth] [js] [info] bank.htb:22
+[ssh-auth-methods] [js] [info] www.bank.htb:22 [["publickey","password"]]
+[ssh-auth-methods] [js] [info] ns.bank.htb:22 [["publickey","password"]]
+[ssh-auth-methods] [js] [info] chris.bank.htb:22 [["publickey","password"]]
+[ssh-auth-methods] [js] [info] bank.htb:22 [["publickey","password"]]
+[ssh-server-enumeration] [js] [info] www.bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[ssh-server-enumeration] [js] [info] bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[ssh-server-enumeration] [js] [info] chris.bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[ssh-server-enumeration] [js] [info] ns.bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[ssh-password-auth] [js] [info] chris.bank.htb:22
+[ssh-password-auth] [js] [info] ns.bank.htb:22
+[openssh-detect] [tcp] [info] bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[openssh-detect] [tcp] [info] ns.bank.htb:22 [SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8]
+[INF] Skipped www.bank.htb:80 from target list as found unresponsive 30 times
+[INF] Skipped ns.bank.htb:80 from target list as found unresponsive 30 times
+[INF] Skipped chris.bank.htb:80 from target list as found unresponsive 31 times
+[INF] Skipped bank.htb:80 from target list as found unresponsive 31 times
+```
 ## Exploits
 
