@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homelab/my-home-lab-setup.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homelab/my-home-lab-setup.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homelab/my-home-lab-setup.md",
+                "file": "offsec/htb-bank-write-up.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homelab/my-home-lab-setup.md"
+                "file": "offsec/htb-bank-write-up.md"
               }
             }
           },
@@ -156,17 +156,17 @@
   },
   "active": "77ed54a98f00d967",
   "lastOpenFiles": [
+    "offsec/htb-lame-write-up.md",
+    "offsec/htb-bank-write-up.md",
     "offsec/kali-linux-with-vagrant-for-htb.md",
-    "homelab/setting-up-adguard-home.md",
     "homelab/my-home-lab-setup.md",
+    "homelab/setting-up-adguard-home.md",
     "homelab/ssh-key-authentication-on-windows.md",
     "homelab/my-home-lab-evolution.md",
     "virtualisation/customise-vm-template-with-cloud-init-on-promox.md",
     "homelab",
     "tools/ssh-key-authentication-on-windows.md",
     "tools/setting-up-adguard-home.md",
-    "offsec/htb-bank-write-up.md",
-    "offsec/htb-lame-write-up.md",
     "networking/mikrotik-vlan-trunking.md",
     "Pasted image 20231207230603.png",
     "SUMMARY.md",
