@@ -86,11 +86,11 @@ This Nmap scan provides valuable insights into the services running on the targe
 Since the Nmap scan result shows that the TCP port 80 HTTP is opening, I would like to confirm its operating system and version.
 
 ```bash
-whatweb http://10.10.10.29                                       
+$ whatweb http://10.10.10.29                                       
 http://10.10.10.29 [200 OK] Apache[2.4.7], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.7 (Ubuntu)], IP[10.10.10.29], Title[Apache2 Ubuntu Default Page: It works]
 ```
 
-The provided output is from a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
+The output is from a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
 
 1. **URL**: http://10.10.10.29
    - This is the URL of the target website being analyzed.
@@ -126,6 +126,107 @@ sudo vi /etc/hosts
 
 #### dig
 
+With a standard DNS tool called 'dig' available in Linux, we can pull it off the following DNS recon on the target machine. 
 
+```bash
+# get the domain's zone details with dig from dns server 
+sudo dig @10.10.10.29 bank.htb axfr 
+
+; <<>> DiG 9.19.17-1-Debian <<>> @10.10.10.29 bank.htb axfr
+; (1 server found)
+;; global options: +cmd
+bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 604800 86400 2419200 604800
+bank.htb.               604800  IN      NS      ns.bank.htb.
+bank.htb.               604800  IN      A       10.10.10.29
+ns.bank.htb.            604800  IN      A       10.10.10.29
+www.bank.htb.           604800  IN      CNAME   bank.htb.
+bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 604800 86400 2419200 604800
+;; Query time: 504 msec
+;; SERVER: 10.10.10.29#53(10.10.10.29) (TCP)
+;; WHEN: Sun Nov 12 02:49:32 EST 2023
+;; XFR size: 6 records (messages 1, bytes 171)
+
+-------------------------------------------------------------------------------
+
+# filter the output a bit more with grep regex
+sudo dig @10.10.10.29 bank.htb axfr | grep -E '(\w+\.)?\w+\.htb' 
+; <<>> DiG 9.19.17-1-Debian <<>> @10.10.10.29 bank.htb axfr
+bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 604800 86400 2419200 604800
+bank.htb.               604800  IN      NS      ns.bank.htb.
+bank.htb.               604800  IN      A       10.10.10.29
+ns.bank.htb.            604800  IN      A       10.10.10.29
+www.bank.htb.           604800  IN      CNAME   bank.htb.
+bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 604800 86400 2419200 604800
+
+-------------------------------------------------------------------------------
+
+# print only the matches with grep -o
+sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' 
+bank.htb
+bank.htb
+bank.htb
+chris.bank.htb
+bank.htb
+ns.bank.htb
+bank.htb
+ns.bank.htb
+www.bank.htb
+bank.htb
+bank.htb
+bank.htb
+chris.bank.htb
+
+-------------------------------------------------------------------------------
+
+# sort and print only unique with sort -u 
+sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u
+bank.htb
+chris.bank.htb
+ns.bank.htb
+www.bank.htb
+
+-------------------------------------------------------------------------------
+
+# translate or replace newline \n with space ' '
+sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' '
+bank.htb chris.bank.htb ns.bank.htb www.bank.htb 
+
+-------------------------------------------------------------------------------
+
+# manipulate the output the way we want with awk
+sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'
+10.10.10.29     bank.htb chris.bank.htb ns.bank.htb www.bank.htb
+
+-------------------------------------------------------------------------------
+
+# copy the output to clipboard with xclip instead of print out
+sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}' | xclip -selection clipboard
+
+```
+
+The series of commands demonstrate the process of retrieving domain zone details using the `dig` command from a DNS server, filtering the output with `grep`, `sort`, and `awk`, and finally copying the manipulated output to the clipboard using `xclip`. Here's an explanation of each step:
+
+1. **Original `dig` Command**:
+   - The initial command requests a zone transfer (`axfr`) for the domain `bank.htb` from the DNS server located at `10.10.10.29`.
+
+2. **Filtered Output with `grep`**:
+   - `grep -E '(\w+\.)?\w+\.htb'`: Filters the output to include only lines containing domain names with the `.htb` extension.
+
+3. **Print Matches Only with `grep -o`**:
+   - `grep -oE '(\w+\.)?\w+\.htb'`: Prints only the matched domain names, one per line.
+
+4. **Sort and Print Unique Entries with `sort -u`**:
+   - `sort -u`: Sorts the domain names alphabetically and prints only unique entries.
+
+5. **Translate Newlines to Spaces with `tr`**:
+   - `tr '\n' ' '`: Translates newline characters to spaces, combining all domain names into a single line.
+
+6. **Manipulate Output with `awk`**:
+   - `awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'`: Formats the output to include the DNS server IP address (`10.10.10.29`) followed by the domain names.
+
+7. **Copy Output to Clipboard with `xclip`**:
+   - `xclip -selection clipboard`: Copies the manipulated output to the clipboard for easy pasting into other applications.
+
+Overall, this series of commands provides a streamlined way to retrieve domain zone details from a DNS server, filter and manipulate the output, and then copy it to the clipboard for further use. This can be particularly useful for network administrators or security professionals conducting DNS-related investigations or audits.
 ## Exploits
 
