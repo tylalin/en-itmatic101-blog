@@ -40,3 +40,4 @@
 * [Kali Linux with Vagrant for HTB](offsec/kali-linux-with-vagrant-for-htb.md)
 * [HTB: Lame Write-Up](offsec/htb-lame-write-up.md)
 * [HTB: Bank Write-Up](offsec/htb-bank-write-up.md)
+* [HTB: Legacy Write-Up](offsec/htb-legacy-write-up.md)
