@@ -117,7 +117,15 @@ In summary, the WhatWeb analysis reveals that the target website is hosted on a 
 
 ### DNS
 
-To make my life a bi
+To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file. 
+
+```bash
+sudo vi /etc/hosts 
+10.10.10.29 bank.htb
+```
+
+#### dig
+
 
 ## Exploits
 
