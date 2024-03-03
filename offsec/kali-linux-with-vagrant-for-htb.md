@@ -4,10 +4,12 @@ cover: >-
 coverY: 0
 ---
 
-# Kali Linux with Vagrant for HTB
+# Kali Linux with Vagrant and Ansible for HTB
 
 ## Why?
 
-Because I can. Since I have started setting up an lab environment for Offensive Security (OffSec), I h
+Ever since I embarked on setting up my Offensive Security (OffSec) lab environment, I foresaw the need to streamline the process in case of mishaps with my Kali Linux VM in VirtualBox. And indeed, there were a few instances where experimentation led to unintended consequences. To mitigate this, I resolved to automate the setup every time I needed to reset or modify the Kali Linux VM.
+
+Given my familiarity with Vagrant for managing virtual environments, it made perfect sense to leverage it for setting up the Kali Linux VM in VirtualBox. I stumbled upon the Kali Linux Vagrant box available on HashiCorp's Vagrant Cloud site, accessible at https://app.vagrantup.com/kalilinux/boxes/rolling. For provisioning, I opted for Ansible without hesitation, confident in its ability to prepare the VM for my OffSec endeavors.
 
 ## Prerequisites
