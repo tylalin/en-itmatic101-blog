@@ -406,16 +406,12 @@ Gobuster successfully identified several directories and paths on the target web
 
 ```bash
 # scan the target with nuclei 
-nuclei -list bank.urls                                                                      [34/384]
-                                                                                                        
-                     __     _                                                                           
-   ____  __  _______/ /__  (_)                                                                          
-  / __ \/ / / / ___/ / _ \/ /                                                                           
- / / / / /_/ / /__/ /  __/ /                                                                            
-/_/ /_/\__,_/\___/_/\___/_/   v3.0.2                                                                    
-                                                                                                        
-                projectdiscovery.io                                                                     
-                                                                                                        
+$ nuclei -list bank.urls                                                                      [34/384]
+                     __     _                                                    
+   ____  __  _______/ /__  (_)                                                   
+  / __ \/ / / / ___/ / _ \/ /                                                    
+ / / / / /_/ / /__/ /  __/ /                                                     
+/_/ /_/\__,_/\___/_/\___/_/   v3.0.2                                                                    	projectdiscovery.io                                              
 [INF] nuclei-templates are not installed, installing...                                                 
 [INF] Successfully installed nuclei-templates at /home/vagrant/.local/nuclei-templates                  
 [INF] Current nuclei version: v3.0.2 (outdated)                                                         
@@ -512,5 +508,36 @@ p
 [INF] Skipped chris.bank.htb:80 from target list as found unresponsive 31 times
 [INF] Skipped bank.htb:80 from target list as found unresponsive 31 times
 ```
+
+The command executes a scan using Nuclei against the target URLs listed in `bank.urls`. Here's a breakdown of the process and the findings:
+
+1. **Nuclei Installation and Version Check**:
+   - Nuclei-templates are installed, and the current version of Nuclei (`v3.0.2`) and the loaded templates (`v9.6.9`) are displayed.
+
+2. **Template Execution**:
+   - Nuclei executes a total of 7278 templates for the scan, comprising both signed and unsigned templates.
+   - The templates are clustered to reduce the number of requests, resulting in 1252 clusters and 4876 reduced requests.
+
+3. **Targets Loaded and Interactsh Server**:
+   - Four targets are loaded for the current scan, which correspond to the URLs listed in `bank.urls`.
+   - Nuclei utilizes an Interactsh Server at `oast.live` during the scan.
+
+4. **Detection of HTTP Methods and Web Servers**:
+   - Nuclei identifies various HTTP methods supported by the target URLs, such as POST, OPTIONS, GET, and HEAD.
+   - Detection of web servers reveals that the targets are running Apache/2.4.7 on Ubuntu.
+
+5. **Identification of Vulnerabilities and Misconfigurations**:
+   - Nuclei detects several vulnerabilities and misconfigurations across the target URLs, including:
+     - Missing security headers like `X-Frame-Options`, `Content-Security-Policy`, and `Strict-Transport-Security`.
+     - Exposure of sensitive files like `WEB-INF/web.xml`, potentially indicating information disclosure vulnerabilities (e.g., CVE-2021-28164).
+     - Detection of weak SSH configurations, including password authentication and supported authentication methods.
+
+6. **Additional Observations**:
+   - Nuclei skips some target URLs (`www.bank.htb`, `ns.bank.htb`, `chris.bank.htb`, `bank.htb`) due to unresponsiveness after multiple attempts.
+
+7. **Conclusion**:
+   - The scan provides valuable insights into potential security issues and vulnerabilities present in the target URLs. These findings can aid in securing the web applications and network infrastructure against various threats and attacks.
+
+Overall, Nuclei proves to be a versatile and effective tool for security scanning, offering comprehensive coverage of web and network security assessment.
 ## Exploits
 
