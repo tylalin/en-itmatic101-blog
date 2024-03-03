@@ -355,8 +355,67 @@ It illustrates the process of using Aquatone, a reconnaissance tool, to capture 
    sudo apt install feh
    ```
 
-Overall, these commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis. This can be particularly useful for security professionals conducting web-based assessments or penetration tests.
+These commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis. This can be particularly useful for security professionals conducting web-based assessments or penetration tests.
 
+#### Gobuster
 
+```bash
+# web scan with gobuster 
+$ gobuster dir --threads 100 --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --url http://bank.htb 
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://bank.htb
+[+] Method:                  GET
+[+] Threads:                 100
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/uploads              (Status: 301) [Size: 305] [--> http://bank.htb/uploads/]
+/assets               (Status: 301) [Size: 304] [--> http://bank.htb/assets/]
+/inc                  (Status: 301) [Size: 301] [--> http://bank.htb/inc/]
+/server-status        (Status: 403) [Size: 288]
+/balance-transfer     (Status: 301) [Size: 314] [--> http://bank.htb/balance-transfer/]
+Progress: 220560 / 220561 (100.00%)
+===============================================================
+Finished
+===============================================================
+```
+
+The output displays the results of a web scan conducted with Gobuster, a popular directory and file brute-forcing tool. Here's an explanation of the scan:
+
+1. **Tool Information**:
+   - Gobuster version 3.6 is being used for the scan. Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers. Gobuster is useful for pentesters, ethical hackers and forensics experts. It also can be used for security tests.
+
+2. **Scan Configuration**:
+   - **URL**: http://bank.htb
+   - **Method**: GET
+   - **Threads**: 100
+   - **Wordlist**: /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+   - **Negative Status codes**: 404 (ignore 404 Not Found responses)
+   - **User Agent**: gobuster/3.6
+   - **Timeout**: 10 seconds
+
+3. **Results**:
+   - The scan is performed in directory enumeration mode.
+   - Directories or paths found during the scan:
+     - **/uploads**: Redirects to http://bank.htb/uploads/
+     - **/assets**: Redirects to http://bank.htb/assets/
+     - **/inc**: Redirects to http://bank.htb/inc/
+     - **/server-status**: Access forbidden (Status: 403 Forbidden)
+     - **/balance-transfer**: Redirects to http://bank.htb/balance-transfer/
+
+4. **Scan Progress**:
+   - Indicates the progress of the scan, showing the number of enumerated items out of the total.
+
+5. **Scan Completion**:
+   - The scan is marked as finished once all threads have completed their enumeration.
+
+In summary, Gobuster successfully identified several directories and paths on the target website http://bank.htb, along with their corresponding status codes and sizes. This information can be valuable for further reconnaissance and vulnerability assessment, allowing security professionals to explore potentially sensitive areas of the web application. Additionally, the presence of directories like "uploads," "assets," and "balance-transfer" may provide avenues for further investigation or exploitation.
 ## Exploits
 
