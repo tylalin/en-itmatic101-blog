@@ -150,7 +150,7 @@ The Ansible playbook is designed to set up a Kali Linux environment with various
 
 It automates the setup of a Kali Linux environment, installs essential tools, configures the timezone, sets up SSH authentication, and prepares directories and files required for penetration testing activities.
 
-## Final Thought
+## Final Thoughts
 
 I intend to blog about a step-by-step instructions, making it easy for you to follow along and set up your own Kali Linux environment. Each step is well-explained, ensuring that even beginners can understand and implement the process. It emphasises the practicality of using Vagrant for managing Kali Linux VMs, especially for someone who frequently engage in activities like penetration testing on HTB. By automating the setup process, you can save time and quickly deploy standardised environments.
 
