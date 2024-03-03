@@ -22,6 +22,12 @@ Given my familiarity with Vagrant for managing virtual environments, it made per
 
 ## Starting Point
 
+I have uploaded the source code of Vagrantfile and Ansible playbook.yml along with the required sample files on GitHub - https://github.com/tylalin/vagrant-kali
+
+### Vagrantfile
+
+Here is what my Vagrantfile looks like as show below.
+
 ```ruby
 # -*- mode: ruby -*- 
 # vi: set ft=ruby :
@@ -43,3 +49,84 @@ Vagrant.configure("2") do |config|
   end  
 end
 ```
+
+The code is a Vagrantfile written in Ruby, used to configure and provision virtual machines (VMs) with Vagrant. Here's an explanation of each section:
+
+1. **File Metadata**: 
+   - `# -*- mode: ruby -*-` and `# vi: set ft=ruby :` are editor configuration comments. They indicate that the file should be treated as Ruby code by text editors like Emacs and Vim.
+
+2. **Global Variables**:
+   - `OS = "rolling"`: Specifies the operating system version. In this case, it's set to "rolling," indicating the rolling release version of Kali Linux.
+   - `BOX_IMAGE = "kalilinux/#{OS}"`: Defines the Vagrant box image to be used. It's constructed dynamically based on the OS variable.
+   - `NODE_COUNT = 1`: Sets the number of virtual machines to be created. In this case, it's set to create a single VM.
+
+3. **Vagrant Configuration**:
+   - `Vagrant.configure("2") do |config|`: Begins the Vagrant configuration block.
+   - `(1..NODE_COUNT).each do |i|`: Loops through the range of 1 to NODE_COUNT (inclusive), creating multiple VMs if NODE_COUNT is greater than 1.
+   - `config.vm.define "#{OS}-#{i}" do |subconfig|`: Defines a VM with a specific name based on the OS and index.
+   - `subconfig.vm.box = BOX_IMAGE`: Specifies the Vagrant box image to use for the VM.
+   - `subconfig.vm.hostname = "#{OS}-#{i}"`: Sets the hostname of the VM based on the OS and index.
+   - `subconfig.vm.network :private_network, ip: "192.168.56.#{i + 100}"`: Configures a private network interface for the VM with a dynamically assigned IP address.
+
+4. **Ansible Provisioning**:
+   - `config.vm.provision "ansible_local" do |a|`: Configures Ansible provisioning to run locally on the VM.
+   - `a.playbook = "playbook.yml"`: Specifies the Ansible playbook to be executed for provisioning. The playbook is named "playbook.yml".
+
+This Vagrantfile sets up a single Kali Linux VM with a private network interface and provisions it using an Ansible playbook named "playbook.yml". The VM is named dynamically based on the OS and index specified in the global variables.
+
+### Ansible (provisioner)
+
+Following is what my Ansible playbook.yml file looks like. 
+
+```yaml
+---
+- name: kali setup
+  hosts: all
+  become: true
+  gather_facts: false
+  
+  tasks:
+  - name: set timezone to Australia/Melbourne
+    timezone:
+      name: Australia/Melbourne
+
+  - name: install tools
+    apt:
+      name: "{{ item }}"
+      update_cache: true
+    loop:
+      - tmux        # enables a number of terminals (or windows) to be accessed and controlled from a single terminal like screen
+      - feh         # fast, lightweight image viewer which uses imlib2
+      - gobuster    # tool used to brute-force URIs including directories and files as well as DNS subdomains
+      - nuclei      # fast, template based vulnerability scanner focusing on extensive configurability, massive extensibility and ease of use
+      - dirsearch   # command-line tool designed to brute force directories and files in webservers
+      - nishang     # framework and collection of scripts and payloads which enables usage of PowerShell for offensive security and post exploitation during Penetration Tests
+      - seclists    # collection of multiple types of lists used during security assessments
+      - steghide    # steganography program which hides bits of a data file in some of the least significant bits of another file in such a way that the existence of the data file is not visible and cannot be proven.
+      - exiftool    # a free and open-source software program for reading, writing, and manipulating image, audio, video, and PDF metadata. 
+
+  - name: copy ssh pubkey to remote 
+    authorized_key:
+      user: vagrant
+      key: "{{ lookup('file', 'files/me.pub') }}"
+
+  - block:
+    - name: create htb directory 
+      file:
+        state: directory
+        path: /home/vagrant/htb
+      register: htb
+
+    - name: copy htb ovpn file to remote
+      copy: 
+        src: files/lab_tylalin.ovpn
+        dest: "{{ htb.path }}"
+
+    - name: download pimpmykali with git
+      git:
+        repo: https://github.com/Dewalt-arch/pimpmykali.git
+        dest: /home/vagrant/add-on
+    become: true
+    become_user: vagrant
+```
+
