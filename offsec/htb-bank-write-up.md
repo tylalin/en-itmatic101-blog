@@ -89,7 +89,7 @@ With a standard DNS tool called 'dig' available in Linux, we can pull it off the
 
 ```bash
 # get the domain's zone details with dig from dns server 
-sudo dig @10.10.10.29 bank.htb axfr 
+$ dig @10.10.10.29 bank.htb axfr 
 
 ; <<>> DiG 9.19.17-1-Debian <<>> @10.10.10.29 bank.htb axfr
 ; (1 server found)
@@ -108,7 +108,7 @@ bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 6048
 -------------------------------------------------------------------------------
 
 # filter the output a bit more with grep regex
-sudo dig @10.10.10.29 bank.htb axfr | grep -E '(\w+\.)?\w+\.htb' 
+$ dig @10.10.10.29 bank.htb axfr | grep -E '(\w+\.)?\w+\.htb' 
 ; <<>> DiG 9.19.17-1-Debian <<>> @10.10.10.29 bank.htb axfr
 bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 604800 86400 2419200 604800
 bank.htb.               604800  IN      NS      ns.bank.htb.
@@ -120,7 +120,7 @@ bank.htb.               604800  IN      SOA     bank.htb. chris.bank.htb. 2 6048
 -------------------------------------------------------------------------------
 
 # print only the matches with grep -o
-sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' 
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' 
 bank.htb
 bank.htb
 bank.htb
@@ -138,7 +138,7 @@ chris.bank.htb
 -------------------------------------------------------------------------------
 
 # sort and print only unique with sort -u 
-sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u
 bank.htb
 chris.bank.htb
 ns.bank.htb
@@ -147,19 +147,19 @@ www.bank.htb
 -------------------------------------------------------------------------------
 
 # translate or replace newline \n with space ' '
-sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' '
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' '
 bank.htb chris.bank.htb ns.bank.htb www.bank.htb 
 
 -------------------------------------------------------------------------------
 
 # manipulate the output the way we want with awk
-sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}'
 10.10.10.29     bank.htb chris.bank.htb ns.bank.htb www.bank.htb
 
 -------------------------------------------------------------------------------
 
 # copy the output to clipboard with xclip instead of print out
-sudo dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}' | xclip -selection clipboard
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u | tr '\n' ' ' | awk '{print "10.10.10.29\t" $1 " " $2 " " $3 " " $4}' | xclip -selection clipboard
 
 ```
 
@@ -191,7 +191,7 @@ Overall, this series of commands provides a streamlined way to retrieve domain z
 To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file. 
 
 ```bash
-sudo vi /etc/hosts 
+$ sudo vi /etc/hosts 
 10.10.10.29     bank.htb chris.bank.htb ns.bank.htb www.bank.htb
 ```
 
@@ -229,6 +229,133 @@ The output is from a command-line tool called WhatWeb, which is used for web fin
    - Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
 
 In summary, the WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
+
+#### Aquatone
+
+```bash
+# download aquatone from github
+$ wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
+
+# unzip the zip file
+$ unzip aquatone_linux_amd64_1.7.0.zip
+
+# get the oupt to bank.urls for aquatone
+$ dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u > bank.urls
+
+# it looks like this
+$ cat bank.urls 
+bank.htb
+chris.bank.htb
+ns.bank.htb
+www.bank.htb
+
+# use sed to substitute or put http:// prefix to every line
+$ sed -i 's/^/http:\/\//gi' bank.urls
+
+# verify the sed output
+$ cat bank.urls 
+http://bank.htb
+http://chris.bank.htb
+http://ns.bank.htb
+http://www.bank.htb
+
+# feed it to aquaton
+$ cat bank.urls | ./aquatone 
+aquatone v1.7.0 started at 2023-11-12T04:24:36-05:00
+
+Using unreliable Google Chrome for screenshots. Install Chromium for better results.
+
+Targets    : 4
+Threads    : 2
+Ports      : 80, 443, 8000, 8080, 8443
+Output dir : .
+
+http://ns.bank.htb: 200 OK
+http://www.bank.htb: 200 OK
+http://bank.htb: 200 OK
+http://chris.bank.htb: 200 OK
+http://ns.bank.htb: screenshot successful
+http://www.bank.htb: screenshot successful
+http://bank.htb: screenshot successful
+http://chris.bank.htb: screenshot successful
+Calculating page structures... done
+Clustering similar pages... done
+Generating HTML report... done
+
+Writing session file...Time:
+ - Started at  : 2023-11-12T04:24:36-05:00
+ - Finished at : 2023-11-12T04:24:43-05:00
+ - Duration    : 7s
+
+Requests:
+ - Successful : 4
+ - Failed     : 0
+
+ - 2xx : 4
+ - 3xx : 0
+ - 4xx : 0
+ - 5xx : 0
+
+Screenshots:
+ - Successful : 4
+ - Failed     : 0
+
+Wrote HTML report to: aquatone_report.html
+
+# open aquatone_report.html with firefox
+$ firefox aquatone_report.html&
+
+# feh is a light-weight image viewer to png screenshots
+# install feh with apt so that we can view the screenshots of aquatone outputs
+sudo apt install feh
+
+```
+
+It illustrates the process of using Aquatone, a reconnaissance tool, to capture screenshots and generate reports for a list of domain URLs. Here's a breakdown of each step:
+
+1. **Download Aquatone**:
+   - Fetches the Aquatone release from GitHub using `wget`.
+   ```
+   wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
+   ```
+
+2. **Unzip Aquatone**:
+   - Extracts the downloaded Aquatone zip file using `unzip`.
+   ```
+   unzip aquatone_linux_amd64_1.7.0.zip
+   ```
+
+3. **Retrieve Domain URLs with `dig`**:
+   - Performs a zone transfer for the domain `bank.htb` from the DNS server at `10.10.10.29`, filters and sorts unique domain names, and saves them to a file named `bank.urls`.
+   ```
+   dig @10.10.10.29 bank.htb axfr | grep -oE '(\w+\.)?\w+\.htb' | sort -u > bank.urls
+   ```
+
+4. **Prepend `http://` to URLs with `sed`**:
+   - Adds `http://` prefix to each line in `bank.urls`.
+   ```
+   sed -i 's/^/http:\/\//gi' bank.urls
+   ```
+
+5. **Feed URLs to Aquatone**:
+   - Pipes the contents of `bank.urls` to Aquatone for scanning.
+   ```
+   cat bank.urls | ./aquatone
+   ```
+
+6. **Open Aquatone HTML Report**:
+   - Opens the generated HTML report in a web browser (Firefox) for review.
+   ```
+   firefox aquatone_report.html&
+   ```
+
+7. **View Screenshots with `feh`**:
+   - If desired, use the `feh` image viewer to browse the screenshots captured by Aquatone.
+   ```
+   sudo apt install feh
+   ```
+
+Overall, these commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis. This can be particularly useful for security professionals conducting web-based assessments or penetration tests.
 
 
 ## Exploits
