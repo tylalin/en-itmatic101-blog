@@ -4,7 +4,7 @@ cover: >-
 coverY: 0
 ---
 
-# Kali Linux with Vagrant and Ansible for HTB
+# Kali Linux with Vagrant for HTB
 
 ## Why?
 
