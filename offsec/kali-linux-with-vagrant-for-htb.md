@@ -4,7 +4,7 @@ cover: >-
 coverY: 0
 ---
 
-# Kali Linux with Vagrant and Ansible for HTB
+# Kali Linux with Vagrant for HTB
 
 ## Why?
 
@@ -14,15 +14,17 @@ Given my familiarity with Vagrant for managing virtual environments, it made per
 
 ## Prerequisites
 
-- VirtualBox installation - https://www.virtualbox.org/wiki/Downloads
-- Vagrant installation - https://developer.hashicorp.com/vagrant/install
-- Visual Studio Code (vscode) - https://code.visualstudio.com/docs/setup/setup-overview
-- Willingness to learn a bit of Vagrant's Ruby and Ansible's YAML syntax
-- Basic Linux Sysadmin knowledge and skills
+* VirtualBox installation - https://www.virtualbox.org/wiki/Downloads
+* Vagrant installation - https://developer.hashicorp.com/vagrant/install
+* Visual Studio Code (vscode) - https://code.visualstudio.com/docs/setup/setup-overview
+* Willingness to learn a bit of Vagrant's Ruby and Ansible's YAML syntax
+* Basic Linux Sysadmin knowledge and skills
 
 ## Starting Point
 
 I have uploaded the source code of Vagrantfile and Ansible playbook.yml along with the required sample files on GitHub - https://github.com/tylalin/vagrant-kali
+
+<figure><img src="../.gitbook/assets/2024-03-03_20-14.png" alt=""><figcaption><p>Visual Studio Code - Setup</p></figcaption></figure>
 
 ### Vagrantfile
 
@@ -52,31 +54,28 @@ end
 
 The code is a Vagrantfile written in Ruby, used to configure and provision virtual machines (VMs) with Vagrant. Here's an explanation of each section:
 
-1. **File Metadata**: 
-   - `# -*- mode: ruby -*-` and `# vi: set ft=ruby :` are editor configuration comments. They indicate that the file should be treated as Ruby code by text editors like Emacs and Vim.
-
+1. **File Metadata**:
+   * `# -*- mode: ruby -*-` and `# vi: set ft=ruby :` are editor configuration comments. They indicate that the file should be treated as Ruby code by text editors like Emacs and Vim.
 2. **Global Variables**:
-   - `OS = "rolling"`: Specifies the operating system version. In this case, it's set to "rolling," indicating the rolling release version of Kali Linux.
-   - `BOX_IMAGE = "kalilinux/#{OS}"`: Defines the Vagrant box image to be used. It's constructed dynamically based on the OS variable.
-   - `NODE_COUNT = 1`: Sets the number of virtual machines to be created. In this case, it's set to create a single VM.
-
+   * `OS = "rolling"`: Specifies the operating system version. In this case, it's set to "rolling," indicating the rolling release version of Kali Linux.
+   * `BOX_IMAGE = "kalilinux/#{OS}"`: Defines the Vagrant box image to be used. It's constructed dynamically based on the OS variable.
+   * `NODE_COUNT = 1`: Sets the number of virtual machines to be created. In this case, it's set to create a single VM.
 3. **Vagrant Configuration**:
-   - `Vagrant.configure("2") do |config|`: Begins the Vagrant configuration block.
-   - `(1..NODE_COUNT).each do |i|`: Loops through the range of 1 to NODE_COUNT (inclusive), creating multiple VMs if NODE_COUNT is greater than 1.
-   - `config.vm.define "#{OS}-#{i}" do |subconfig|`: Defines a VM with a specific name based on the OS and index.
-   - `subconfig.vm.box = BOX_IMAGE`: Specifies the Vagrant box image to use for the VM.
-   - `subconfig.vm.hostname = "#{OS}-#{i}"`: Sets the hostname of the VM based on the OS and index.
-   - `subconfig.vm.network :private_network, ip: "192.168.56.#{i + 100}"`: Configures a private network interface for the VM with a dynamically assigned IP address.
-
+   * `Vagrant.configure("2") do |config|`: Begins the Vagrant configuration block.
+   * `(1..NODE_COUNT).each do |i|`: Loops through the range of 1 to NODE\_COUNT (inclusive), creating multiple VMs if NODE\_COUNT is greater than 1.
+   * `config.vm.define "#{OS}-#{i}" do |subconfig|`: Defines a VM with a specific name based on the OS and index.
+   * `subconfig.vm.box = BOX_IMAGE`: Specifies the Vagrant box image to use for the VM.
+   * `subconfig.vm.hostname = "#{OS}-#{i}"`: Sets the hostname of the VM based on the OS and index.
+   * `subconfig.vm.network :private_network, ip: "192.168.56.#{i + 100}"`: Configures a private network interface for the VM with a dynamically assigned IP address.
 4. **Ansible Provisioning**:
-   - `config.vm.provision "ansible_local" do |a|`: Configures Ansible provisioning to run locally on the VM.
-   - `a.playbook = "playbook.yml"`: Specifies the Ansible playbook to be executed for provisioning. The playbook is named "playbook.yml".
+   * `config.vm.provision "ansible_local" do |a|`: Configures Ansible provisioning to run locally on the VM.
+   * `a.playbook = "playbook.yml"`: Specifies the Ansible playbook to be executed for provisioning. The playbook is named "playbook.yml".
 
 This Vagrantfile sets up a single Kali Linux VM with a private network interface and provisions it using an Ansible playbook named "playbook.yml". The VM is named dynamically based on the OS and index specified in the global variables.
 
 ### Ansible (provisioner)
 
-Following is what my Ansible playbook.yml file looks like. 
+Following is what my Ansible playbook.yml file looks like.
 
 ```yaml
 ---
@@ -133,23 +132,21 @@ Following is what my Ansible playbook.yml file looks like.
 The Ansible playbook is designed to set up a Kali Linux environment with various tools and configurations. Here's a breakdown of its components:
 
 1. **Playbook Metadata**:
-   - `name: kali setup`: Specifies the name of the playbook.
-   - `hosts: all`: Indicates that the playbook will be applied to all hosts.
-   - `become: true`: Allows the tasks to be executed with elevated privileges.
-   - `gather_facts: false`: Disables the gathering of facts about the hosts.
-
+   * `name: kali setup`: Specifies the name of the playbook.
+   * `hosts: all`: Indicates that the playbook will be applied to all hosts.
+   * `become: true`: Allows the tasks to be executed with elevated privileges.
+   * `gather_facts: false`: Disables the gathering of facts about the hosts.
 2. **Tasks**:
-   - **Set Timezone**: Configures the timezone to "Australia/Melbourne" using the `timezone` module.
-   - **Install Tools**: Installs various tools using the `apt` module. Tools include `tmux`, `feh`, `gobuster`, `nuclei`, `dirsearch`, `nishang`, `seclists`, `steghide`, and `exiftool`.
-   - **Copy SSH Public Key**: Copies an SSH public key to the remote host's `vagrant` user's authorized keys list, allowing passwordless SSH authentication.
-   - **Block**: Defines a block of tasks that are executed sequentially.
-     - **Create HTB Directory**: Creates a directory named "htb" in the home directory of the `vagrant` user.
-     - **Copy HTB OVPN File**: Copies an OpenVPN configuration file (`lab_tylalin.ovpn`) to the "htb" directory.
-     - **Download PimpMyKali with Git**: Clones the PimpMyKali repository from GitHub into the "/home/vagrant/add-on" directory.
-
+   * **Set Timezone**: Configures the timezone to "Australia/Melbourne" using the `timezone` module.
+   * **Install Tools**: Installs various tools using the `apt` module. Tools include `tmux`, `feh`, `gobuster`, `nuclei`, `dirsearch`, `nishang`, `seclists`, `steghide`, and `exiftool`.
+   * **Copy SSH Public Key**: Copies an SSH public key to the remote host's `vagrant` user's authorized keys list, allowing passwordless SSH authentication.
+   * **Block**: Defines a block of tasks that are executed sequentially.
+     * **Create HTB Directory**: Creates a directory named "htb" in the home directory of the `vagrant` user.
+     * **Copy HTB OVPN File**: Copies an OpenVPN configuration file (`lab_tylalin.ovpn`) to the "htb" directory.
+     * **Download PimpMyKali with Git**: Clones the PimpMyKali repository from GitHub into the "/home/vagrant/add-on" directory.
 3. **Additional Notes**:
-   - The `become` and `become_user` directives are used within the block to execute tasks as the `vagrant` user with elevated privileges.
-   - The `register` keyword is used to store the result of the "create htb directory" task, which can be referenced later if needed.
+   * The `become` and `become_user` directives are used within the block to execute tasks as the `vagrant` user with elevated privileges.
+   * The `register` keyword is used to store the result of the "create htb directory" task, which can be referenced later if needed.
 
 It automates the setup of a Kali Linux environment, installs essential tools, configures the timezone, sets up SSH authentication, and prepares directories and files required for penetration testing activities.
 
@@ -160,4 +157,3 @@ I intend to blog about a step-by-step instructions, making it easy for you to fo
 Given the popularity of HTB and the importance of having a reliable Kali Linux setup for ethical hacking and penetration testing, the content of this post is highly relevant to anyone who like to setup a throw away Kali Linux environment for home lab. It addresses a common need among security professionals and enthusiasts alike. While this post provide a solid foundation for setting up Kali Linux with Vagrant for HTB, I also encourages you to customise your environments according to your preferences and requirements. This flexibility allows you to tailor your setups to better suit your workflow and objectives.
 
 In conclusion, this blog post serves as a valuable resource for individuals looking to streamline the Kali Linux setup process for Hack The Box activities. It offers practical guidance, emphasises the benefits of using Vagrant, and empowers you to customise your environments for optimal performance.
-
