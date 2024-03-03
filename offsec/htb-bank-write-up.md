@@ -535,8 +535,6 @@ The command executes a scan using Nuclei against the target URLs listed in `bank
 6. **Additional Observations**:
    - Nuclei skips some target URLs (`www.bank.htb`, `ns.bank.htb`, `chris.bank.htb`, `bank.htb`) due to unresponsiveness after multiple attempts.
 
-The scan provides valuable insights into potential security issues and vulnerabilities present in the target URLs. These findings can aid in securing the web applications and network infrastructure against various threats and attacks.
-
-Nuclei proves to be a versatile and effective tool for security scanning, offering comprehensive coverage of web and network security assessment.
+The scan provides valuable insights into potential security issues and vulnerabilities present in the target URLs. These findings can aid in securing the web applications and network infrastructure against various threats and attacks. Nuclei proves to be a versatile and effective tool for security scanning, offering comprehensive coverage of web and network security assessment.
 ## Exploits
 
