@@ -81,48 +81,7 @@ The provided Nmap scan result reveals information about a target host with the I
 
 This Nmap scan provides valuable insights into the services running on the target host, allowing for further analysis and potential identification of security risks or areas of interest for further investigation.
 
-### whatweb
-
-Since the Nmap scan result shows that the TCP port 80 HTTP is opening, I would like to confirm its operating system and version.
-
-```bash
-$ whatweb http://10.10.10.29                                       
-http://10.10.10.29 [200 OK] Apache[2.4.7], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.7 (Ubuntu)], IP[10.10.10.29], Title[Apache2 Ubuntu Default Page: It works]
-```
-
-The output is from a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
-
-1. **URL**: http://10.10.10.29
-   - This is the URL of the target website being analyzed.
-
-2. **Response Status**: [200 OK]
-   - Indicates that the web server responded with a successful HTTP status code, meaning the request was processed without errors.
-
-3. **Web Server**: Apache [2.4.7]
-   - Specifies the web server software being used, which in this case is Apache version 2.4.7. Apache is a widely used open-source web server software.
-
-4. **Country**: RESERVED [ZZ]
-   - The country field typically provides information about the geographical location of the server based on its IP address. However, in this case, it shows "RESERVED" with the country code "ZZ", which suggests that the country information is not available or reserved.
-
-5. **HTTP Server**: Ubuntu Linux [Apache/2.4.7 (Ubuntu)]
-   - Indicates the underlying operating system and its version, which is Ubuntu Linux. Additionally, it mentions that Apache version 2.4.7 is specifically configured for Ubuntu.
-
-6. **IP Address**: 10.10.10.29
-   - Specifies the IP address of the target server.
-
-7. **Title**: Apache2 Ubuntu Default Page: It works
-   - Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
-
-In summary, the WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
-
 ### DNS
-
-To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file. 
-
-```bash
-sudo vi /etc/hosts 
-10.10.10.29 bank.htb
-```
 
 #### dig
 
@@ -228,5 +187,49 @@ The series of commands demonstrate the process of retrieving domain zone details
    - `xclip -selection clipboard`: Copies the manipulated output to the clipboard for easy pasting into other applications.
 
 Overall, this series of commands provides a streamlined way to retrieve domain zone details from a DNS server, filter and manipulate the output, and then copy it to the clipboard for further use. This can be particularly useful for network administrators or security professionals conducting DNS-related investigations or audits.
+
+To make my life a bit easier and work with DNS, I add the following entry to my local Kali machine's /etc/hosts file. 
+
+```bash
+sudo vi /etc/hosts 
+10.10.10.29     bank.htb chris.bank.htb ns.bank.htb www.bank.htb
+```
+
+### Web
+#### WhatWeb
+
+Since the Nmap scan result shows that the TCP port 80 HTTP is opening, I would like to confirm its operating system and version.
+
+```bash
+$ whatweb http://10.10.10.29                                       
+http://10.10.10.29 [200 OK] Apache[2.4.7], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.7 (Ubuntu)], IP[10.10.10.29], Title[Apache2 Ubuntu Default Page: It works]
+```
+
+The output is from a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
+
+1. **URL**: http://10.10.10.29
+   - This is the URL of the target website being analyzed.
+
+2. **Response Status**: [200 OK]
+   - Indicates that the web server responded with a successful HTTP status code, meaning the request was processed without errors.
+
+3. **Web Server**: Apache [2.4.7]
+   - Specifies the web server software being used, which in this case is Apache version 2.4.7. Apache is a widely used open-source web server software.
+
+4. **Country**: RESERVED [ZZ]
+   - The country field typically provides information about the geographical location of the server based on its IP address. However, in this case, it shows "RESERVED" with the country code "ZZ", which suggests that the country information is not available or reserved.
+
+5. **HTTP Server**: Ubuntu Linux [Apache/2.4.7 (Ubuntu)]
+   - Indicates the underlying operating system and its version, which is Ubuntu Linux. Additionally, it mentions that Apache version 2.4.7 is specifically configured for Ubuntu.
+
+6. **IP Address**: 10.10.10.29
+   - Specifies the IP address of the target server.
+
+7. **Title**: Apache2 Ubuntu Default Page: It works
+   - Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
+
+In summary, the WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
+
+
 ## Exploits
 
