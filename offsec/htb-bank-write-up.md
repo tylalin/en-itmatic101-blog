@@ -412,6 +412,8 @@ The output displays the results of a web scan conducted with Gobuster, a popular
 
 Gobuster successfully identified several directories and paths on the target website http://bank.htb, along with their corresponding status codes and sizes. This information can be valuable for further reconnaissance and vulnerability assessment, allowing security professionals to explore potentially sensitive areas of the web application. Additionally, the presence of directories like "uploads," "assets," and "balance-transfer" may provide avenues for further investigation or exploitation.
 
+#### Nuclei
+
 
 ## Exploits
 
