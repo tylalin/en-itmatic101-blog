@@ -205,7 +205,7 @@ $ whatweb http://10.10.10.29
 http://10.10.10.29 [200 OK] Apache[2.4.7], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.7 (Ubuntu)], IP[10.10.10.29], Title[Apache2 Ubuntu Default Page: It works]
 ```
 
-The output is from a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
+It is a command-line tool called WhatWeb, which is used for web fingerprinting or identifying the technologies used by a website. Here's an analysis of the output:
 
 1. **URL**: http://10.10.10.29
    - This is the URL of the target website being analyzed.
@@ -228,7 +228,7 @@ The output is from a command-line tool called WhatWeb, which is used for web fin
 7. **Title**: Apache2 Ubuntu Default Page: It works
    - Provides the title of the webpage, which is the default page served by Apache on an Ubuntu system. This is often displayed when no specific content is configured for the root URL of the web server.
 
-In summary, the WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
+WhatWeb analysis reveals that the target website is hosted on a server running Apache version 2.4.7 on Ubuntu Linux. The default page for Apache on Ubuntu is being served, indicating that the web server is operational and accessible.
 
 #### Aquatone
 
@@ -307,7 +307,7 @@ $ firefox aquatone_report.html&
 
 # feh is a light-weight image viewer to png screenshots
 # install feh with apt so that we can view the screenshots of aquatone outputs
-sudo apt install feh
+$ sudo apt install feh
 
 ```
 
@@ -355,7 +355,7 @@ It illustrates the process of using Aquatone, a reconnaissance tool, to capture 
    sudo apt install feh
    ```
 
-These commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis. This can be particularly useful for security professionals conducting web-based assessments or penetration tests.
+These commands demonstrate a streamlined process for using Aquatone to perform reconnaissance on a list of domain URLs, capturing screenshots and generating reports for further analysis.
 
 #### Gobuster
 
