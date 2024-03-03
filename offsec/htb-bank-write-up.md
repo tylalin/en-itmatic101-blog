@@ -412,14 +412,14 @@ $ nuclei -list bank.urls                                                        
   / __ \/ / / / ___/ / _ \/ /                                                    
  / / / / /_/ / /__/ /  __/ /                                                     
 /_/ /_/\__,_/\___/_/\___/_/   v3.0.2                                                                    	projectdiscovery.io                                              
-[INF] nuclei-templates are not installed, installing...                                                 
+[INF] nuclei-templates are not installed, installing...                          
 [INF] Successfully installed nuclei-templates at /home/vagrant/.local/nuclei-templates                  
-[INF] Current nuclei version: v3.0.2 (outdated)                                                         
-[INF] Current nuclei-templates version: v9.6.9 (latest)                                                 
-[INF] New templates added in latest release: 73                                                         
-[INF] Templates loaded for current scan: 7278                                                           
-[INF] Executing 5264 signed templates from projectdiscovery/nuclei-templates                            
-[WRN] Executing 2028 unsigned templates. Use with caution.                        
+[INF] Current nuclei version: v3.0.2 (outdated)                                  
+[INF] Current nuclei-templates version: v9.6.9 (latest)                          
+[INF] New templates added in latest release: 73                                  
+[INF] Templates loaded for current scan: 7278                                    
+[INF] Executing 5264 signed templates from projectdiscovery/nuclei-templates     
+[WRN] Executing 2028 unsigned templates. Use with caution.                       
 [INF] Targets loaded for current scan: 4                                         
 [INF] Templates clustered: 1252 (Reduced 4876 Requests)                          
 [caa-fingerprint] [dns] [info] ns.bank.htb                                       
